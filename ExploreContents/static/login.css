@@ -1,0 +1,75 @@
+body{
+    background-color: rgb(189, 161, 216);
+}
+
+#message{
+    background-color: rgb(232, 189, 0);
+    width: 98%;
+    border-radius: 80px 0px;
+    padding: 15px;
+    margin: 0 auto;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.msg-alert{
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+}
+#close{
+    margin-left: 45%;
+    border: none;
+    background: transparent;
+    font-size: large;
+}
+
+#close:hover{
+    cursor: pointer;
+}
+
+.heading{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+    color: rgb(125, 5, 206);
+}
+
+.container{
+    background-color: rgb(255, 229, 245);
+    width: 35%;
+    padding: 20px 5%;
+    border-radius: 23px;
+    margin: 10px auto;
+}
+
+h1{
+    color: rgb(10, 10, 13);
+    font-size: larger;
+}
+input{
+    width: 90%;
+    font-size: medium;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#submit{
+    margin-top: 30px;
+    color: white;
+    font-size: 20px;
+    padding: 8px 25px;
+    background-color: blue;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#submit:hover{
+    cursor: pointer;
+    background-color: rgb(62, 62, 255);
+}
+
+.subtitle{
+    color: grey;
+    font-weight: lighter;
+}

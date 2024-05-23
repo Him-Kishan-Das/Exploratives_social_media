@@ -1,0 +1,26 @@
+{% load static %}
+
+<div id="sideMenu">
+    <div class="first-header">
+        <img src="{% static 'logo-png.png' %}" alt="logo" id="logo"/>
+    </div>
+    <a href="/home">
+        <div id="home" class="menu-items">
+            <i class="fa-solid fa-house menu-items-elements"></i>
+            <p class="menu-items-elements">Home</p>
+        </div>
+    </a>
+    <a href="/">
+        <div id="add-post" class="menu-items">
+            <i class="fa-regular fa-pen-to-square menu-items-elements"></i>
+            <p class="menu-items-elements">Add Post</p>
+        </div>
+    </a>
+    <a href="/profile">
+        <div id="profile" class="menu-items">
+            <i class="fa-regular fa-user menu-items-elements"></i>
+            <p class="menu-items-elements">Profile</p>
+        </div>
+    </a>
+
+</div>

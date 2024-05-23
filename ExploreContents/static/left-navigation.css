@@ -1,0 +1,24 @@
+.menu-items{
+    display: flex;
+    font-size: 17px;
+    padding: 10px 20px;
+}
+
+
+.menu-items:hover{
+    cursor: pointer;
+    background-color: rgb(242, 242, 242);
+}
+
+
+.menu-items-elements{
+    padding: 11px 15px;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+    text-decoration: none;
+    color: black;
+}

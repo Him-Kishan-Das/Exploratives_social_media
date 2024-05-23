@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Him Kishan Das</title>
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static "left-navigation.css" %}">
+    <link rel="stylesheet" href="{% static "profile.css" %}">
+</head>
+<body>
+
+    <div class="main">
+        <div id="left-sider">
+            {% include "left-navigation.html" %}
+        </div>
+
+
+        <div class="profile-stats-main">
+            <div class="profile-stats">
+
+                <div class="profile-sub-section1">
+                    <img src="{% static "man.png" %}" alt="profile picture">
+                </div>
+
+                <div class="profile-sub-section2">
+                    <h3 id="username">him_kishan_das01</h3>
+
+                    <div class="stats">
+                        <div class="post-stats">
+                            <h4 class="stats-numbers">4</h4>
+                            <p class="stats-title">Posts</p>
+                        </div>
+                        <div class="post-stats">
+                            <h4 class="stats-numbers">275</h4>
+                            <div class="stats-title">Followers</div>
+                        </div>
+                        <div class="post-stats">
+                            <h4 class="stats-numbers">504</h4>
+                            <p class="stats-title">Following</p>
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="user-details">
+                        <h5 class="full-name">HIM KISHAN DAS</h5>
+                        <p class="about">
+                            22 <br>
+                            Guwahati, Assam <br>
+                            Indian <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        <div class="gallery">
+            <hr>
+
+            <div class="user-posts">
+                <h3 class="title">Posts</h3>
+
+                <div class="gallery-struct">
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+                    <div class="post-struct">
+                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+<script src="https://kit.fontawesome.com/24b543e59b.js" crossorigin="anonymous"></script>
+</html>

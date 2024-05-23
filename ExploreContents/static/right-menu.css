@@ -1,0 +1,47 @@
+.right-menuContainer{
+    padding-left: 3vw;
+}
+
+.suggestions{
+    margin: 25px 0px;
+}
+
+.suggested-profiles{
+    display: flex;
+    width: 88%;
+    margin: 15px 9px;
+}
+
+.profile{
+    display: flex;
+
+}
+
+.profile-img{
+    width: 10%;
+}
+
+.sub-profile{
+    /* padding: 0px 12px; */
+    margin: 0 12px;
+}
+
+.profile-username{
+    font-size: 14px;
+}
+
+.profile-name{
+    font-size: 11px;
+}
+
+#follow-btn{
+    border: none;
+    color: blue;
+    font-weight: 400;
+    background-color: transparent;
+}
+
+#follow-btn:hover{
+    cursor: pointer;
+}
+
