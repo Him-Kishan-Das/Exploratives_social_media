@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_ROOT = 'Exploratives/media'
+MEDIA_URL = '/media/'
+
 
 # Application definition
 

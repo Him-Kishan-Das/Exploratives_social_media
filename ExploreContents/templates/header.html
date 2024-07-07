@@ -31,6 +31,7 @@
                   <hr>
 
                 <form action="/submit_post" method="post" enctype="multipart/form-data" class="create-post-form">
+                    {% csrf_token %}
                     <input type="text" id="caption" name="caption" placeholder="Enter your caption..." required id="new-post-caption" class="new-post-input-field">
                     <br>
                     <input type="file" id="photo" name="photo" accept="image/*" class="new-post-input-field" onchange="previewImage(event)">

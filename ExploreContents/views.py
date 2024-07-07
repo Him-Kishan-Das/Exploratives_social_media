@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import users
+from .models import users, post
 from django.contrib.auth.hashers import make_password, check_password
+from django.http import HttpResponseRedirect
+
+from PIL import Image
 
 # Create your views here.
 def home(request):
@@ -57,3 +60,31 @@ def login(request):
         'message': msg,
     }
     return render(request, 'login.html', context)
+
+
+def newPost(request):
+    msg = None
+    if request.method == 'POST':
+        caption = request.POST.get('caption')  # Correct parameter name
+        photo = request.FILES.get('photo')  # Correct parameter name for file upload
+
+        # Save the image to the media directory
+        if photo:
+            # Process the image if needed (e.g., resizing, cropping)
+            # Save it to the media directory
+            new_image = Image.open(photo)
+            new_image.save(f'media/post/{photo.name}')  # Adjust the path as needed
+
+            # Create a new post instance
+            new_post = post(user_id=1, post_caption=caption, post_image=f'media/post/{photo.name}', post_likes=2)
+            new_post.save()
+            msg = True
+
+            # Redirect to the home page (adjust the URL name as needed)
+            return HttpResponseRedirect('/home/')
+
+    context = {
+        'message': msg,
+    }
+
+    return render(request, 'submit_post.html', context)
