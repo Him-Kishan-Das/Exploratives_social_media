@@ -1,3 +1,41 @@
-<p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, veniam vitae animi doloremque labore voluptate rem fuga, vero quia ipsum excepturi eligendi aliquid fugit enim ut debitis! Et, nostrum consequatur?
-</p>
+
+{% load static %} 
+
+{% block content %} {% for post in postx %}
+<div class="feeds-container">
+  <div class="sub-container1">
+    {% comment %} profile image {% endcomment %}
+    <div class="profile">
+      <img src="{% static "man.png" %}" class="profile-img" alt="logo">
+      <div class="sub-profile">
+        <h4 class="profile-username">him_kishan_das01</h4>
+        <p class="profile-name">Him Kishan Das</p>
+      </div>
+    </div>
+  </div>
+
+  <img src="{{ post.post_image.url }}" alt="kitten-photo" class="feeds-picture">
+
+
+  <div class="sub-container2">
+    <div class="likes-comment-section">
+      <i class="fa-regular fa-heart"></i>
+      <i class="fa-regular fa-comment"></i>
+    </div>
+    <div class="save">
+      <i class="fa-regular fa-bookmark"></i>
+    </div>
+  </div>
+
+  <div class="likes-view">
+    <p>{{ post.post_likes }} likes</p>
+  </div>
+
+  <div class="caption">{{ post.post_caption }}</div>
+
+  <div class="date">
+    <p>May 28, 2024</p>
+  </div>
+</div>
+{% endfor %} {% endblock %}
+

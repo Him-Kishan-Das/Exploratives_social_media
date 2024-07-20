@@ -1,13 +1,26 @@
 from django.shortcuts import render, redirect
 from .models import users, post
 from django.contrib.auth.hashers import make_password, check_password
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.template import loader
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 from PIL import Image
 
 # Create your views here.
 def home(request):
-    return render(request, 'index.html')
+    # Retrieve all posts from the database
+    feedx = post.objects.all()
+
+    # Pass the posts to the template context
+    context = {'postx': feedx}
+
+    # Load the template named 'feeds.html'
+    template = loader.get_template('index.html')
+
+    # Render the template with the context
+    return HttpResponse(template.render(context, request))
 
 
 
@@ -39,7 +52,7 @@ def signup(request):
     return render(request, 'signup.html', context)
 
 
-def login(request):
+def login_page(request):
     msg = None
     # context = {'csrf_token': csrf(request)['csrf_token'],}
     if request.method == 'POST':
@@ -51,6 +64,7 @@ def login(request):
         if check_password(passLogin, check_user.password):
             request.session['user'] = userLogin
             msg = True
+            # login(request, check_user)
             return redirect('/home', msg)
             
         else:
@@ -62,25 +76,47 @@ def login(request):
     return render(request, 'login.html', context)
 
 
+# def login_page(request):
+#     msg = None
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('pass')
+
+#         # Check if a user with the provided username exists
+#         try:
+#             user = users.objects.get(username=username)
+#         except users.DoesNotExist:
+#             # Display an error message if the username does not exist
+#             messages.error(request, 'Invalid Username')
+#             return redirect('/login/')
+         
+#         # Check if the hashed password matches
+#         if check_password(password, user.password):
+#             # Log in the user and redirect to the home page upon successful login
+#             login(request, user)
+#             return redirect('/home/')
+#         else:
+#             # Display an error message if authentication fails (invalid password)
+#             messages.error(request, "Invalid Password")
+#             return redirect('/login/')
+     
+#     # Render the login page template (GET request)
+#     return render(request, 'login.html')
+
 def newPost(request):
     msg = None
     if request.method == 'POST':
-        caption = request.POST.get('caption')  # Correct parameter name
-        photo = request.FILES.get('photo')  # Correct parameter name for file upload
+        caption = request.POST.get('caption') 
+        photo = request.FILES.get('photo') 
 
-        # Save the image to the media directory
         if photo:
-            # Process the image if needed (e.g., resizing, cropping)
-            # Save it to the media directory
             new_image = Image.open(photo)
-            new_image.save(f'media/post/{photo.name}')  # Adjust the path as needed
+            new_image.save(f'static/post/{photo.name}')  # Adjust the path as needed
 
-            # Create a new post instance
-            new_post = post(user_id=1, post_caption=caption, post_image=f'media/post/{photo.name}', post_likes=2)
+            new_post = post(user_id=1, post_caption=caption, post_image=f'static/post/{photo.name}', post_likes=2)
             new_post.save()
             msg = True
 
-            # Redirect to the home page (adjust the URL name as needed)
             return HttpResponseRedirect('/home/')
 
     context = {
@@ -88,3 +124,18 @@ def newPost(request):
     }
 
     return render(request, 'submit_post.html', context)
+
+# def feedDisplay(request):
+#     # Retrieve all posts from the database
+#     feedx = post.objects.all()
+
+#     # Pass the posts to the template
+#     context = {'postx': feedx}
+#     template = loader.get_template('feeds.html')  # Adjust the template name as needed
+#     return HttpResponse(template.render(context, request))
+
+
+def usernames(request):
+    usr = users.objects.all()
+    context = {'usrx': usr}
+    return render(request, 'index.html', context)

@@ -13,6 +13,17 @@
         <p class="heading">LogIn</p>
         <form action="" method="post">
             {% csrf_token %}
+
+            <!-- Display error/success messages -->
+            {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            
             <label for="">
                 <h1>username</h1>
                 <input type="text" name="username" id="username">

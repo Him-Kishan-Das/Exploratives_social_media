@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,136 +28,9 @@
                 <h2>Feeds</h2>
             </div>
            
-            <div class="feeds-container">
-
-                <div class="sub-container1">
-                    {% comment %} profile image  {% endcomment %}
-                    <div class="profile">
-                        <img src="{% static "man.png" %}" class="profile-img" alt="logo">
-                        <div class="sub-profile">
-                            <h4 class="profile-username">him_kishan_das01</h4>
-                            <p class="profile-name">Him Kishan Das</p>
-                        </div>
-                    </div>
-                </div>
+            {% include "feeds.html" %}          
 
 
-                <img src="{% static "kitten.png" %}" alt="kitten-photo" class="feeds-picture">
-
-                <div class="sub-container2">
-                    <div class="likes-comment-section">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-regular fa-comment"></i>
-                    </div>
-                    <div class="save">
-                        <i class="fa-regular fa-bookmark"></i>
-                    </div>
-                </div>
-
-
-                <div class="likes-view">
-                    <p>7 likes</p>
-                </div>
-
-
-                <div class="caption">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, officiis! Nostrum labore natus ex amet modi facere commodi vero illum quidem mollitia tenetur ipsum omnis molestias necessitatibus officiis, sapiente eaque.
-                </div>
-
-                <div class="date">
-                    <p>May 28, 2024</p>
-                </div>
-            </div>
-
-            {% comment %} 2 nd post {% endcomment %}
-
-
-            <div class="feeds-container">
-
-                <div class="sub-container1">
-                    {% comment %} profile image  {% endcomment %}
-                    <div class="profile">
-                        <img src="{% static "man.png" %}" class="profile-img" alt="logo">
-                        <div class="sub-profile">
-                            <h4 class="profile-username">him_kishan_das01</h4>
-                            <p class="profile-name">Him Kishan Das</p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <img src="{% static "kitten.png" %}" alt="kitten-photo" class="feeds-picture">
-
-                <div class="sub-container2">
-                    <div class="likes-comment-section">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-regular fa-comment"></i>
-                    </div>
-                    <div class="save">
-                        <i class="fa-regular fa-bookmark"></i>
-                    </div>
-                </div>
-
-
-                <div class="likes-view">
-                    <p>7 likes</p>
-                </div>
-
-
-                <div class="caption">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, officiis! Nostrum labore natus ex amet modi facere commodi vero illum quidem mollitia tenetur ipsum omnis molestias necessitatibus officiis, sapiente eaque.
-                </div>
-
-                <div class="date">
-                    <p>May 28, 2024</p>
-                </div>
-            </div>
-
-
-
-
-            {% comment %} 3rd post  {% endcomment %}
-
-            <div class="feeds-container">
-
-                <div class="sub-container1">
-                    {% comment %} profile image  {% endcomment %}
-                    <div class="profile">
-                        <img src="{% static "man.png" %}" class="profile-img" alt="logo">
-                        <div class="sub-profile">
-                            <h4 class="profile-username">him_kishan_das01</h4>
-                            <p class="profile-name">Him Kishan Das</p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <img src="{% static "kitten.png" %}" alt="kitten-photo" class="feeds-picture">
-
-                <div class="sub-container2">
-                    <div class="likes-comment-section">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-regular fa-comment"></i>
-                    </div>
-                    <div class="save">
-                        <i class="fa-regular fa-bookmark"></i>
-                    </div>
-                </div>
-
-
-                <div class="likes-view">
-                    <p>7 likes</p>
-                </div>
-
-
-                <div class="caption">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, officiis! Nostrum labore natus ex amet modi facere commodi vero illum quidem mollitia tenetur ipsum omnis molestias necessitatibus officiis, sapiente eaque.
-                </div>
-
-                <div class="date">
-                    <p>May 28, 2024</p>
-                </div>
-            </div>
         </div>
 
         <div id="right-sidebar">
@@ -165,9 +39,6 @@
     </div>
 
 </body>
-<script src="https://kit.fontawesome.com/24b543e59b.js" crossorigin="anonymous">
-
-
-
+<script src="https://kit.fontawesome.com/24b543e59b.js" crossorigin="anonymous">    
 </script>
 </html>
