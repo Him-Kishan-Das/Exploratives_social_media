@@ -16,3 +16,5 @@ class post(models.Model):
     post_timestamp = models.DateField(auto_now=True)
     post_image = models.ImageField(upload_to='post')
     post_likes = models.IntegerField()
+
+

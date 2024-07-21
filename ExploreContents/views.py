@@ -4,29 +4,9 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.contrib.auth import authenticate, login
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from PIL import Image
-
-# Create your views here.
-def home(request):
-    # Retrieve all posts from the database
-    feedx = post.objects.all()
-
-    # Pass the posts to the template context
-    context = {'postx': feedx}
-
-    # Load the template named 'feeds.html'
-    template = loader.get_template('index.html')
-
-    # Render the template with the context
-    return HttpResponse(template.render(context, request))
-
-
-
-def profile(request):
-    return render(request, 'profile.html')
-
 
 def signup(request):
     msg = None  # Initialize msg to None
@@ -51,57 +31,83 @@ def signup(request):
     context = {'message': msg}
     return render(request, 'signup.html', context)
 
-
-def login_page(request):
-    msg = None
-    # context = {'csrf_token': csrf(request)['csrf_token'],}
-    if request.method == 'POST':
-        userLogin = request.POST.get('username')
-        passLogin = request.POST.get('pass')
-
-        check_user = users.objects.get(username=userLogin)
-        # Check if the hashed password matches
-        if check_password(passLogin, check_user.password):
-            request.session['user'] = userLogin
-            msg = True
-            # login(request, check_user)
-            return redirect('/home', msg)
-            
-        else:
-            msg = False
-            print("Please enter valid username and password")
-    context = {
-        'message': msg,
-    }
-    return render(request, 'login.html', context)
-
-
 # def login_page(request):
 #     msg = None
 #     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('pass')
-
-#         # Check if a user with the provided username exists
+#         userLogin = request.POST.get('username')
+#         passLogin = request.POST.get('pass')
+#         print(f"Username: {userLogin}, Password: {passLogin}")
 #         try:
-#             user = users.objects.get(username=username)
+#             user = users.objects.get(username=userLogin)
+#             print(f"User found: {user.username}")
+#             if check_password(passLogin, user.password):
+#                 user = authenticate(request, username=userLogin, password=passLogin)
+#                 if user is not None:
+#                     login(request, user)
+#                     print("User authenticated and logged in")
+#                     return redirect('/home')
+#                 else:
+#                     msg = "Invalid username or password"
+#                     print("Authentication failed")
+#             else:
+#                 msg = "Invalid username or password"
+#                 print("Password check failed")
 #         except users.DoesNotExist:
-#             # Display an error message if the username does not exist
-#             messages.error(request, 'Invalid Username')
-#             return redirect('/login/')
+#             msg = "User does not exist"
+#             print("User does not exist")
+    
+#     context = {'message': msg}
+#     return render(request, 'login.html', context)
+
+
+@login_required
+def home(request):
+    # Retrieve all posts from the database
+    feedx = post.objects.all()
+
+    # Pass the posts to the template context
+    context = {'postx': feedx}
+
+    # Load the template named 'feeds.html'
+    template = loader.get_template('index.html')
+
+    # Render the template with the context
+    return HttpResponse(template.render(context, request))
+
+
+
+def profile(request):
+    return render(request, 'profile.html')
+
+
+
+
+def login_page(request):
+    msg = None
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('pass')
+
+        # Check if a user with the provided username exists
+        try:
+            user = users.objects.get(username=username)
+        except users.DoesNotExist:
+            # Display an error message if the username does not exist
+            messages.error(request, 'Invalid Username')
+            return redirect('/login/')
          
-#         # Check if the hashed password matches
-#         if check_password(password, user.password):
-#             # Log in the user and redirect to the home page upon successful login
-#             login(request, user)
-#             return redirect('/home/')
-#         else:
-#             # Display an error message if authentication fails (invalid password)
-#             messages.error(request, "Invalid Password")
-#             return redirect('/login/')
+        # Check if the hashed password matches
+        if check_password(password, user.password):
+            # Log in the user and redirect to the home page upon successful login
+            login(request, user)
+            return redirect('/home/')
+        else:
+            # Display an error message if authentication fails (invalid password)
+            messages.error(request, "Invalid Password")
+            return redirect('/login/')
      
-#     # Render the login page template (GET request)
-#     return render(request, 'login.html')
+    # Render the login page template (GET request)
+    return render(request, 'login.html')
 
 def newPost(request):
     msg = None
