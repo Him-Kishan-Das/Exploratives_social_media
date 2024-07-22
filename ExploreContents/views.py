@@ -156,7 +156,7 @@ from .models import CustomUser as users, Post
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from PIL import Image
@@ -189,16 +189,13 @@ def login_page(request):
 
         try:
             user = users.objects.get(username=username)
-            print(user.username)
-            print(user.password)
+
         except users.DoesNotExist:
             messages.error(request, 'Invalid Username')
             return redirect('/login/')
          
         if check_password(password, user.password):
-            print('helloworld')
             user = authenticate(request, username=username, password= password)
-            print(user)
             if user is not None:
                 login(request, user)
                 return redirect('/home/')
@@ -218,7 +215,14 @@ def home(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
 
+def my_logout_view(request):
+    logout(request)
+    return redirect('login')
+
 def profile(request):
+    username = request.user.username
+    # Your logic to fetch user profile data...
+    
     return render(request, 'profile.html')
 
 def newPost(request):

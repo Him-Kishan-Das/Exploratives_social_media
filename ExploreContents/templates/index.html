@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static "index.css" %}">
     <link rel="stylesheet" href="{% static "left-navigation.css" %}">
     <link rel="stylesheet" href="{% static "right-menu.css" %}">
+
 </head>
 <body>
 
@@ -22,6 +23,7 @@
         <div id="left-sidebar">
             {% include 'left-navigation.html' %} 
         </div>
+        {% comment %} <h2>{{ request.user.username }}</h2> {% endcomment %}
 
         <div id="feeds">
             <div class="feeds-title">

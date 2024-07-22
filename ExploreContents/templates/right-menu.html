@@ -4,8 +4,8 @@
     <div class="profile">
         <img src="{% static "man.png" %}" class="profile-img" alt="logo">
         <div class="sub-profile">
-            <h4 class="profile-username">him_kishan_das01</h4>
-            <p class="profile-name">Him Kishan Das</p>
+            <h4 class="profile-username">{{ request.user.username }}</h4>
+            <p class="profile-name">{{ request.user.name }}</p>
         </div>
     </div>
 

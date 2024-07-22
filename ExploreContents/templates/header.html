@@ -1,90 +1,139 @@
 {% load static %}
 
-    <header>
-        {% comment %} Website logo  {% endcomment %}
-        <div class="first-header">
-            <img src="{% static 'logo-png.png' %}" alt="logo" id="logo"/>
-        </div>
-        <div class="middle-header">
+<header>
+  {% comment %} Website logo {% endcomment %}
+  <div class="first-header">
+    <img src="{% static 'logo-png.png' %}" alt="logo" id="logo" />
+  </div>
+  <div class="middle-header">
+    {% comment %} search bar {% endcomment %}
+    <div class="search-bar">
+      <input type="text" placeholder="search" name="search" id="search-text" />
+      <button id="search-btn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+  </div>
 
-            {% comment %} search bar  {% endcomment %}
-            <div class="search-bar">
-                <input type="text" placeholder="search" name="search" id="search-text" >
-                <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+  {% comment %} right section header {% endcomment %}
+  <div class="right-header">
+    <button class="create-post-btn" id="myBtn">+ Create Post</button>
+    {% comment %} <img src="{% static 'man.png' %}" alt="" id="avatar-profile" /> {% endcomment %}
+
+    {% comment %} modal for create post {% endcomment %}
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <h1 class="createPost">Create a New Post</h1>
+
+        <hr />
+
+        <form
+          action="/submit_post"
+          method="post"
+          enctype="multipart/form-data"
+          class="create-post-form"
+        >
+          {% csrf_token %}
+          <input
+            type="text"
+            id="caption"
+            name="caption"
+            placeholder="Enter your caption..."
+            required
+            id="new-post-caption"
+            class="new-post-input-field"
+          />
+          <br />
+          <input
+            type="file"
+            id="photo"
+            name="photo"
+            accept="image/*"
+            class="new-post-input-field"
+            onchange="previewImage(event)"
+          />
+          <img
+            id="img-preview"
+            src="#"
+            alt="Selected Image"
+            style="max-width: 100%; display: none"
+          />
+          <br />
+          <input type="submit" value="Post" id="create-newpost-submit" />
+        </form>
+      </div>
+    </div>
+
+
+
+    {% comment %} modal for user drop-down menu  {% endcomment %}
+
+    <div class="dropdown nav-link">
+        <button class="dropbtn" onclick="dropDown()">
+            <img class="nav_profile" src="{% static 'man.png' %}">
+            
+        </button>
+        <div class="dropdown-content profile-content" id="myDropdown">
+        <div class="hl"></div>
+            <p class="profile_name">{{ request.user.username }}</p>
+            <hr>
+            <a class="drop_down_link" href="{% url 'profile' request.user.username %}">
+              <i class="fa-solid fa-user"></i>
+                <span class="labelname">My Profile</span> 
+            </a>
+
+                 <a class="drop_down_link" href="{% url 'logout' %}">
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                  <span class="labelname">Log Out</span> 
+                </a>
             </div>
-        </div>
+      
 
+    </div>
 
-        {% comment %} right section header   {% endcomment %}
-        <div class="right-header">
-            <button class="create-post-btn" id="myBtn">+ Create Post</button>
-            <img src="{% static 'man.png' %}" alt="" id="avatar-profile">
-
-            <div id="myModal" class="modal">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-                  <span class="close">&times;</span>
-                    
-                  <h1 class="createPost">Create a New Post</h1>
-
-                  <hr>
-
-                <form action="/submit_post" method="post" enctype="multipart/form-data" class="create-post-form">
-                    {% csrf_token %}
-                    <input type="text" id="caption" name="caption" placeholder="Enter your caption..." required id="new-post-caption" class="new-post-input-field">
-                    <br>
-                    <input type="file" id="photo" name="photo" accept="image/*" class="new-post-input-field" onchange="previewImage(event)">
-                    <img id="img-preview" src="#" alt="Selected Image" style="max-width: 100%; display: none;">
-                    <br>
-                    <input type="submit" value="Post" id="create-newpost-submit">
-                </form>
-
-                </div>
-              
-              </div>
-        </div>
-    </header>
-
+  </div>
+</header>
 
 <script>
+  function previewImage(event) {
+    const fileInput = event.target;
+    const imgPreview = document.getElementById("img-preview");
 
-    function previewImage(event) {
-        const fileInput = event.target;
-        const imgPreview = document.getElementById("img-preview");
-
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                imgPreview.src = e.target.result;
-                imgPreview.style.display = "block";
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        }
+    if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        imgPreview.src = e.target.result;
+        imgPreview.style.display = "block";
+      };
+      reader.readAsDataURL(fileInput.files[0]);
     }
+  }
 
-    var modal = document.getElementById("myModal");
+  var modal = document.getElementById("myModal");
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on the button, open the modal
-    btn.onclick = function() {
+  // When the user clicks on the button, open the modal
+  btn.onclick = function () {
     modal.style.display = "block";
-    }
+  };
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
     modal.style.display = "none";
-    }
+  };
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+      modal.style.display = "none";
     }
-    }
+  };
 </script>
