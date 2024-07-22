@@ -43,9 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ExploreContents',
+
     'django_extensions',
+    
+    'ExploreContents.apps.ExplorecontentsConfig',
+    
+    
 ]
+AUTH_USER_MODEL = 'ExploreContents.CustomUser'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

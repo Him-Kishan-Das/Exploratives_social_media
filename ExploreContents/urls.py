@@ -11,3 +11,4 @@ urlpatterns = [
     # path('login/', views.login_page),
     path('submit_post/', views.newPost)
 ]
+#   
