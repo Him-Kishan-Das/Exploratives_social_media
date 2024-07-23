@@ -222,8 +222,9 @@ def my_logout_view(request):
 def profile(request, username):
     # username = request.user.username
     # Your logic to fetch user profile data...
-    
-    return render(request, 'profile.html')
+    user_post = Post.objects.all()
+    context = {'user_post': user_post}
+    return render(request, 'profile.html', context)
 
 def newPost(request):
     msg = None

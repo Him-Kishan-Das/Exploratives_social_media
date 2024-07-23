@@ -52,3 +52,6 @@ class Post(models.Model):
     post_image = models.ImageField(upload_to='post')
     post_likes = models.IntegerField()
 
+class Likes(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
