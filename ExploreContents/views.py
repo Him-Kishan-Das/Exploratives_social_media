@@ -222,7 +222,8 @@ def my_logout_view(request):
 def profile(request, username):
     # username = request.user.username
     # Your logic to fetch user profile data...
-    user_post = Post.objects.all()
+    id = request.user.id
+    user_post = Post.objects.filter(user_id=id)
     context = {'user_post': user_post}
     return render(request, 'profile.html', context)
 

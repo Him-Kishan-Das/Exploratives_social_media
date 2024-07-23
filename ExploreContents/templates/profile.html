@@ -67,7 +67,7 @@
 
                 <div class="gallery-struct">
 
-                    {% for userPost in user_post %}
+                    {% for userPost in user_post reversed %}
                     
                         <div class="post-struct">
                             <img class="post-pic" src="{{ userPost.post_image.url }}" alt="">
