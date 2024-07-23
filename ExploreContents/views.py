@@ -230,12 +230,12 @@ def newPost(request):
     if request.method == 'POST':
         caption = request.POST.get('caption') 
         photo = request.FILES.get('photo') 
-
+        id = request.user.id
         if photo:
             new_image = Image.open(photo)
             new_image.save(f'static/post/{photo.name}') 
 
-            new_post = Post(user_id=1, post_caption=caption, post_image=f'static/post/{photo.name}', post_likes=2)
+            new_post = Post(user_id=id, post_caption=caption, post_image=f'static/post/{photo.name}', post_likes=2)
             new_post.save()
             msg = True
 

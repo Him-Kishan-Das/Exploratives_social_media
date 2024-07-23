@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="profile-sub-section2">
-                    <h3 id="username">{{ username }}</h3>
+                    <h3 id="username">{{ request.user.username }}</h3>
 
                     <div class="stats">
                         <div class="post-stats">
@@ -46,7 +46,7 @@
 
 
                     <div class="user-details">
-                        <h5 class="full-name">HIM KISHAN DAS</h5>
+                        <h5 class="full-name">{{ request.user.name }}</h5>
                         <p class="about">
                             22 <br>
                             Guwahati, Assam <br>
