@@ -1,6 +1,7 @@
 
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
@@ -50,3 +51,4 @@ class Post(models.Model):
     post_timestamp = models.DateField(auto_now=True)
     post_image = models.ImageField(upload_to='post')
     post_likes = models.IntegerField()
+

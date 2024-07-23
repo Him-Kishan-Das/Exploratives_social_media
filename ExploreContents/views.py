@@ -219,8 +219,8 @@ def my_logout_view(request):
     logout(request)
     return redirect('login')
 
-def profile(request):
-    username = request.user.username
+def profile(request, username):
+    # username = request.user.username
     # Your logic to fetch user profile data...
     
     return render(request, 'profile.html')
