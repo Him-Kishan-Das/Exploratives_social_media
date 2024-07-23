@@ -16,7 +16,7 @@
             <p class="menu-items-elements">Add Post</p>
         </div>
     </a>
-    <a href="/profile">
+    <a href="{% url 'profile' request.user.username %}">
         <div id="profile" class="menu-items">
             <i class="fa-regular fa-user menu-items-elements"></i>
             <p class="menu-items-elements">Profile</p>
