@@ -210,10 +210,11 @@ def login_page(request):
 
 @login_required
 def home(request):
-    feedx = Post.objects.all()
-    context = {'postx': feedx}
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render(context, request))
+    # Assuming you have a Post model with a 'user' field (ForeignKey to CustomUser)
+    posts = Post.objects.select_related('user').all()  # Use 'user' instead of 'user__customuser'
+    context = {'posts': posts}
+    return render(request, 'index.html', context)
+
 
 def my_logout_view(request):
     logout(request)

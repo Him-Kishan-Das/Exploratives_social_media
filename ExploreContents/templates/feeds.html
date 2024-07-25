@@ -1,16 +1,25 @@
 
 {% load static %} 
 
-{% block content %} {% for post in postx reversed %}
+{% block content %} {% for post in posts reversed %}
 <div class="feeds-container">
   <div class="sub-container1">
     {% comment %} profile image {% endcomment %}
     <div class="profile">
       <img src="{% static "man.png" %}" class="profile-img" alt="logo">
-      <div class="sub-profile">
-        <h4 class="profile-username">him_kishan_das01</h4>
-        <p class="profile-name">Him Kishan Das</p>
-      </div>
+{% comment %} 
+      {% for userProfile in userx %}
+        {% if post.user_id == userProfile.id %} {% endcomment %}
+
+          <div class="sub-profile">
+            <h4 class="profile-username">{{ post.user.get_username }}</h4>
+            <p class="profile-name">{{ post.user.name }}</p>
+
+          </div>
+
+
+        {% comment %} {% endif %}
+      {% endfor %} {% endcomment %}
     </div>
   </div>
 
