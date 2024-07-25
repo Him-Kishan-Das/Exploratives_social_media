@@ -215,6 +215,8 @@ def home(request):
     liked_post_ids = Likes.objects.filter(user=request.user).values_list('post_id', flat=True)
     print(liked_post_ids)
 
+    for post in posts:
+        post.total_likes = Likes.objects.filter(post=post).count()
     context = {'posts': posts, 'liked_post_ids': liked_post_ids}
     return render(request, 'index.html', context)
 

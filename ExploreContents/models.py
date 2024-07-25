@@ -50,7 +50,6 @@ class Post(models.Model):
     post_caption = models.TextField()
     post_timestamp = models.DateField(auto_now=True)
     post_image = models.ImageField(upload_to='post')
-    post_likes = models.IntegerField()
 
 class Likes(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
