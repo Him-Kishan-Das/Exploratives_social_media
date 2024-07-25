@@ -152,7 +152,7 @@
 
 
 from django.shortcuts import render, redirect
-from .models import CustomUser as users, Post
+from .models import CustomUser as users, Post, Likes
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
@@ -246,6 +246,30 @@ def newPost(request):
 
     context = {'message': msg}
     return render(request, 'submit_post.html', context)
+
+def like(request):
+    if request.method == 'POST':
+        # Extract relevant data (e.g., user ID, post ID)
+        user_id = request.user.id
+        post_id = request.POST.get('post_id')
+
+        # Check if a record with the same user_id and post_id exists
+        existing_like = Likes.objects.filter(user_id=user_id, post_id=post_id).first()
+
+        if existing_like:
+            # Record already exists, handle accordingly (e.g., show an error message)
+            # You can redirect to an error page or display a message to the user
+            # indicating that they've already liked this post.
+            # For now, I'll just print a message:
+            print("User has already liked this post.")
+        else:
+            # Save the like
+            likes = Likes(post_id=post_id, user_id=user_id)
+            likes.save()
+        return HttpResponseRedirect('/home/')
+
+
+    return render(request, 'like-btn.html')
 
 def usernames(request):
     usr = users.objects.all()

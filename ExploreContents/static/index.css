@@ -64,6 +64,10 @@ body{
     justify-content: space-between;
     margin-bottom: 8px;
 }
+.likes-comment-section{
+    display: flex;
+    flex-direction: row;
+}
 
 .fa-regular{
     font-size: larger;
