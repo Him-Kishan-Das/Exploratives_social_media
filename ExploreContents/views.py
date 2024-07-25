@@ -212,7 +212,10 @@ def login_page(request):
 def home(request):
     # Assuming you have a Post model with a 'user' field (ForeignKey to CustomUser)
     posts = Post.objects.select_related('user').all()  # Use 'user' instead of 'user__customuser'
-    context = {'posts': posts}
+    liked_post_ids = Likes.objects.filter(user=request.user).values_list('post_id', flat=True)
+    print(liked_post_ids)
+
+    context = {'posts': posts, 'liked_post_ids': liked_post_ids}
     return render(request, 'index.html', context)
 
 
@@ -266,7 +269,7 @@ def like(request):
             # Save the like
             likes = Likes(post_id=post_id, user_id=user_id)
             likes.save()
-        return HttpResponseRedirect('/home/')
+        return HttpResponseRedirect('/home/', {'existing_like': existing_like})
 
 
     return render(request, 'like-btn.html')

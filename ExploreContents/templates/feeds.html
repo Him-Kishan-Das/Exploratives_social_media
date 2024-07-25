@@ -31,9 +31,15 @@
       <form action="/like-btn/" method="post">
         {% csrf_token %}
         <input type="hidden" name="post_id" value="{{ post.id }}">
-        <button type="submit" style="background: none; border: none; margin-right: 8px">
+        {% if post.id in liked_post_ids %}
+          <button type="submit" style="background: none; border: none; margin-right: 8px;">
+              <i class="fa-regular fa-heart" style="color: red;"></i>
+          </button>
+        {% else %}
+          <button type="submit" style="background: none; border: none; margin-right: 8px">
             <i class="fa-regular fa-heart"></i>
-        </button>
+          </button>
+        {% endif %}
       </form>
     
       <form action="/like-btn" method="post">
