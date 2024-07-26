@@ -54,3 +54,8 @@ class Post(models.Model):
 class Likes(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+class Comments(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_comments')
+    post = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='post_comment')
+    user_comment = models.TextField()

@@ -213,8 +213,7 @@ def home(request):
     # Assuming you have a Post model with a 'user' field (ForeignKey to CustomUser)
     posts = Post.objects.select_related('user').all()  # Use 'user' instead of 'user__customuser'
     liked_post_ids = Likes.objects.filter(user=request.user).values_list('post_id', flat=True)
-    print(liked_post_ids)
-
+    
     for post in posts:
         post.total_likes = Likes.objects.filter(post=post).count()
     context = {'posts': posts, 'liked_post_ids': liked_post_ids}
