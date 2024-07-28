@@ -57,5 +57,5 @@ class Likes(models.Model):
 
 class Comments(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_comments')
-    post = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='post_comment')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comment')
     user_comment = models.TextField()

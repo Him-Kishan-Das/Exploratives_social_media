@@ -42,23 +42,48 @@
           </button>
         {% endif %}
       </form>
-        <a type="button" id="openModalBtn">
+      
+        <a type="button" id="openModalBtn{{ post.id }}">
           <i class="fa-regular fa-comment"></i>
         </a>
 
 
         {% comment %} comment modal starts here  {% endcomment %}
-      <div id="uniqueModal" class="unique-modal">
+      <div id="uniqueModal{{ post.id }}" class="unique-modal">
         <!-- Modal content -->
         <div class="unique-modal-content">
-            <span class="unique-close">&times;</span>
-            <h1>Comments</h1>
+            <span class="unique-close" onclick="closeModal({{ post.id }})">&times;</span>
+            <h1 style="text-align: center;">Comments</h1>
             <hr>
             <div class="comment-container">
               <div class="user-comment">
-                <img src="man.png" alt=""/ class="user-comment-profile">
-                <p class="user-comment-text">I am commenting this to design the feature of the comment in this module</p>
+                <img src="/static/man.png" alt=""/ class="user-comment-profile">
+                <div style="padding-left: 5px">
+                  <h4 class="user-comment-username">him_kishan_das</h4>
+                  <p class="user-comment-text">I am commenting this to design the feature of the comment in this module</p>
+                </div>
               </div>
+              <div class="user-comment">
+                <img src="/static/man.png" alt="" class="user-comment-profile">
+                <div style="padding-left: 5px">
+                  <h4 class="user-comment-username">him_kishan_das</h4>
+                  <p class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia odio minus sint, laborum, quia architecto id officiis rerum, veniam ratione tempore nemo sed libero consequuntur iure nihil magnam numquam aliquam.</p>
+                </div>
+              </div>
+              <div class="user-comment">
+                <img src="/static/man.png" alt="" class="user-comment-profile">
+                <div style="padding-left: 5px">
+                  <h4 class="user-comment-username">him_kishan_das</h4>
+                  <p class="user-comment-text">I am commenting this to design the feature of the comment in this module</p>
+                </div>
+              </div>
+              <hr>
+              <form action="/comment-btn/" method="post" class="newComment">
+                {% csrf_token %}
+                <input type="hidden" name="newComment_postid" value={{ post.id }} />
+                <input type="text" name="newComment" class="newComment-input"/>
+                <button type="submit" class="newCommentPostBtn">Post</button>
+              </form>
             </div>
         </div>
     </div>
@@ -95,29 +120,24 @@
 
 <script>
   // Get the modal
-var uniqueModal = document.getElementById("uniqueModal");
-
-// Get the button that opens the modal
-var openModalBtn = document.getElementById("openModalBtn");
-
-// Get the <span> element that closes the modal
-var uniqueCloseBtn = document.getElementsByClassName("unique-close")[0];
-
-// When the user clicks on the button, open the modal
-openModalBtn.onclick = function() {
-    uniqueModal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-uniqueCloseBtn.onclick = function() {
-    uniqueModal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == uniqueModal) {
-        uniqueModal.style.display = "none";
-    }
-}
+  document.querySelectorAll('[id^="openModalBtn"]').forEach(button => {
+    button.onclick = function() {
+      const postId = this.id.replace('openModalBtn', '');
+      document.getElementById("uniqueModal" + postId).style.display = "block";
+    };
+  });
+  
+  function closeModal(postId) {
+    document.getElementById("uniqueModal" + postId).style.display = "none";
+  }
+  
+  window.onclick = function(event) {
+    document.querySelectorAll('.unique-modal').forEach(modal => {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
+  
 
 </script>

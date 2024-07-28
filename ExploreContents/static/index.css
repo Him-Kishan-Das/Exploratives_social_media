@@ -142,3 +142,49 @@ body{
     text-decoration: none;
     cursor: pointer;
 }
+
+.comment-container{
+    width: 90%;
+    margin: 15px;
+}
+
+.user-comment{
+    display: flex;
+    flex-direction: row;
+    margin: 30px 0;
+}
+
+.user-comment-profile{
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.user-comment-text{
+    font-size: 13.5px;
+}
+.newComment{
+    align-items: center;
+    margin: 2px 5px;
+}
+
+.newComment-input{
+    font-size: 14px;
+    width: 80%;
+    padding: 7px;
+    outline: none;
+}
+
+.newCommentPostBtn{
+    font-size: 14px;
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 8.8px;
+    border-radius: 0 14% 14% 0;
+    width: 16%;
+}
+
+.newCommentPostBtn:hover{
+    cursor: pointer;
+    background-color: rgb(56, 56, 253);
+}

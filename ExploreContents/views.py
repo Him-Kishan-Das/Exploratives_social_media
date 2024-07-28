@@ -152,7 +152,7 @@
 
 
 from django.shortcuts import render, redirect
-from .models import CustomUser as users, Post, Likes
+from .models import CustomUser as users, Post, Likes, Comments
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
@@ -274,6 +274,22 @@ def like(request):
 
 
     return render(request, 'like-btn.html')
+
+
+def comment(request):
+    if request.method == 'POST':
+        user_id1 = request.user.id
+        user_comment1 = request.POST.get('newComment')
+        comment_postid1 = request.POST.get('newComment_postid')
+
+        comments = Comments(user_comment=user_comment1,post_id=comment_postid1, user_id=user_id1)
+        comments.save()
+        return HttpResponseRedirect('/home/')
+    return render(request, 'comment-btn.html')
+
+
+
+
 
 def usernames(request):
     usr = users.objects.all()
