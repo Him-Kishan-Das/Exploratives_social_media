@@ -154,7 +154,7 @@
 from django.shortcuts import render, redirect
 from .models import CustomUser as users, Post, Likes, Comments
 from django.contrib.auth.hashers import make_password, check_password
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.template import loader
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -288,8 +288,10 @@ def comment(request):
     return render(request, 'comment-btn.html')
 
 
-
-
+def load_comments(request, post_id):
+    comments = Comments.objects.select_related('user').filter(post_id=post_id)
+    comments_data = [{'username': comment.user.username, 'user_comment': comment.user_comment} for comment in comments]
+    return JsonResponse({'comments': comments_data})
 
 def usernames(request):
     usr = users.objects.all()

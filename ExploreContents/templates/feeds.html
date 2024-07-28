@@ -42,51 +42,33 @@
           </button>
         {% endif %}
       </form>
-      
-        <a type="button" id="openModalBtn{{ post.id }}">
-          <i class="fa-regular fa-comment"></i>
-        </a>
 
+
+        <button type="submit" id="openModalBtn{{ post.id }}" onclick="loadComments({{ post.id }})" style="background: none; border: none; margin-right: 8px">
+          <i class="fa-regular fa-comment"></i>
+        </button>
+      
 
         {% comment %} comment modal starts here  {% endcomment %}
-      <div id="uniqueModal{{ post.id }}" class="unique-modal">
-        <!-- Modal content -->
-        <div class="unique-modal-content">
-            <span class="unique-close" onclick="closeModal({{ post.id }})">&times;</span>
-            <h1 style="text-align: center;">Comments</h1>
-            <hr>
-            <div class="comment-container">
-              <div class="user-comment">
-                <img src="/static/man.png" alt=""/ class="user-comment-profile">
-                <div style="padding-left: 5px">
-                  <h4 class="user-comment-username">him_kishan_das</h4>
-                  <p class="user-comment-text">I am commenting this to design the feature of the comment in this module</p>
-                </div>
-              </div>
-              <div class="user-comment">
-                <img src="/static/man.png" alt="" class="user-comment-profile">
-                <div style="padding-left: 5px">
-                  <h4 class="user-comment-username">him_kishan_das</h4>
-                  <p class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia odio minus sint, laborum, quia architecto id officiis rerum, veniam ratione tempore nemo sed libero consequuntur iure nihil magnam numquam aliquam.</p>
-                </div>
-              </div>
-              <div class="user-comment">
-                <img src="/static/man.png" alt="" class="user-comment-profile">
-                <div style="padding-left: 5px">
-                  <h4 class="user-comment-username">him_kishan_das</h4>
-                  <p class="user-comment-text">I am commenting this to design the feature of the comment in this module</p>
-                </div>
-              </div>
+        <div id="uniqueModal{{ post.id }}" class="unique-modal">
+          <!-- Modal content -->
+          <div class="unique-modal-content">
+              <span class="unique-close" onclick="closeModal({{ post.id }})">&times;</span>
+              <h1 style="text-align: center;">Comments</h1>
               <hr>
-              <form action="/comment-btn/" method="post" class="newComment">
-                {% csrf_token %}
-                <input type="hidden" name="newComment_postid" value={{ post.id }} />
-                <input type="text" name="newComment" class="newComment-input"/>
-                <button type="submit" class="newCommentPostBtn">Post</button>
-              </form>
-            </div>
-        </div>
-    </div>
+              <div id="comments-container-{{ post.id }}" class="comment-container">
+                  <!-- Comments will be loaded here -->
+                  {% comment %} <hr> {% endcomment %}
+                  {% comment %} <form action="/comment-btn/" method="post" class="newComment">
+                      {% csrf_token %}
+                      <input type="hidden" name="newComment_postid" value="{{ post.id }}" />
+                      <input type="text" name="newComment" class="newComment-input"/>
+                      <button type="submit" class="newCommentPostBtn">Post</button>
+                  </form> {% endcomment %}
+              </div>
+          </div>
+      </div>
+      
 
     {% comment %} comment modal ends here  {% endcomment %}
       
@@ -106,38 +88,56 @@
     <p> {{ post.post_timestamp|date:"d F, Y" }}</p>
   </div>
 </div>
-
-
-
-
-{% comment %} <button id="openModalBtn">Open Modal</button> {% endcomment %}
-
-    <!-- The Modal -->
     
 
 {% endfor %} {% endblock %}
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-  // Get the modal
-  document.querySelectorAll('[id^="openModalBtn"]').forEach(button => {
-    button.onclick = function() {
-      const postId = this.id.replace('openModalBtn', '');
-      document.getElementById("uniqueModal" + postId).style.display = "block";
-    };
-  });
-  
-  function closeModal(postId) {
-    document.getElementById("uniqueModal" + postId).style.display = "none";
-  }
-  
-  window.onclick = function(event) {
-    document.querySelectorAll('.unique-modal').forEach(modal => {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
+  function loadComments(postId) {
+    $.ajax({
+        url: `/load-comments/${postId}/`,
+        type: "GET",
+        success: function(response) {
+            let commentsContainer = document.getElementById(`comments-container-${postId}`);
+            commentsContainer.innerHTML = '';
+            response.comments.forEach(comment => {
+                let div = document.createElement('div');
+                div.classList.add('user-comment');
+                div.innerHTML = `
+                    <img src="/static/man.png" alt="" class="user-comment-profile">
+                    <div style="padding-left: 5px">
+                        <h4 class="user-comment-username">${comment.username}</h4>
+                        <p class="user-comment-text">${comment.user_comment}</p>
+                    </div>
+                `;
+                commentsContainer.appendChild(div);
+            });
+
+            // Add the form for new comments
+            let formDiv = document.createElement('div');
+            formDiv.innerHTML = `
+                <hr>
+                <form action="/comment-btn/" method="post" class="newComment">
+                    {% csrf_token %}
+                    <input type="hidden" name="newComment_postid" value="${postId}" />
+                    <input type="text" name="newComment" class="newComment-input"/>
+                    <button type="submit" class="newCommentPostBtn">Post</button>
+                </form>
+            `;
+            commentsContainer.appendChild(formDiv);
+
+            document.getElementById(`uniqueModal${postId}`).style.display = 'block';
+        },
+        error: function(error) {
+            console.log("Error:", error);
+        }
     });
-  }
-  
+}
+
+function closeModal(postId) {
+    document.getElementById(`uniqueModal${postId}`).style.display = 'none';
+}
+
 
 </script>
