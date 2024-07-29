@@ -37,6 +37,7 @@
 
 .profile-sub-section1 > img{
     width: 10rem;
+    height: 12rem;
     border-radius: 50%;
 }
 
@@ -104,6 +105,21 @@
     outline: none;
     border: none;
     border-bottom: 2px solid rgb(161, 227, 255);
+}
+
+.EditProfileDetails-ChangesBtn{
+    padding: 8px;
+    width: 10rem;
+    color: white;
+    background-color: rgb(36, 164, 36);
+    border: none;
+    margin: 8px 0px;
+    border-radius: 5%;
+}
+
+.EditProfileDetails-ChangesBtn:hover{
+    cursor: pointer;
+    background-color: rgb(22, 155, 22);
 }
 
 .full-name{

@@ -159,6 +159,7 @@ from django.template import loader
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
 from PIL import Image
 
 def signup(request):
@@ -231,6 +232,39 @@ def profile(request, username):
     user_post = Post.objects.filter(user_id=id)
     context = {'user_post': user_post}
     return render(request, 'profile.html', context)
+
+def EditProfile(request):
+    if request.method == 'POST':
+        user_id = request.user.id
+        bio = request.POST.get('profile-bio')
+        profileImage = request.FILES.get('profile-picture')
+        profile_username = request.POST.get('profile-username')
+        profile_name = request.POST.get('profile-name')
+
+
+        # Retrieve the user's profile
+        profile = users.objects.get(id=user_id)
+
+        if profile_username:
+            profile.username = profile_username
+        
+        if profile_name:
+            profile.name = profile_name
+
+        if bio:
+            profile.user_bio = bio  
+
+        if profileImage:
+            profilePic = Image.open(profileImage)
+            profilePic.save(f'static/profilePic/{user_id}.jpg')
+            profile.profile_picture = f'static/profilePic/{user_id}.jpg'  # Save the path to the profile picture
+
+        # Save the updated profile
+        profile.save()
+
+        return HttpResponseRedirect(reverse('profile', args=[request.user.username]))
+    
+    return render(request, "edit_profile.html")
 
 def newPost(request):
     msg = None
