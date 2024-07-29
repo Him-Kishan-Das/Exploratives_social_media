@@ -2,114 +2,138 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile - Him Kishan Das</title>
-    <link rel="stylesheet" href="{% static 'header.css' %}">
-    <link rel="stylesheet" href="{% static "left-navigation.css" %}">
-    <link rel="stylesheet" href="{% static "profile.css" %}">
-</head>
-<body>
-
+    <link rel="stylesheet" href="{% static 'header.css' %}" />
+    <link rel="stylesheet" href="{% static "left-navigation.css" %}"> <link
+    rel="stylesheet" href="{% static "profile.css" %}">
+  </head>
+  <body>
     <div class="main">
-        <div id="left-sider">
-            {% include "left-navigation.html" %}
-        </div>
+      <div id="left-sider">{% include "left-navigation.html" %}</div>
 
+      <div class="profile-stats-main">
+        <div class="profile-stats">
+          <div class="profile-sub-section1">
+            <img src="{% static "man.png" %}" alt="profile picture">
+          </div>
 
-        <div class="profile-stats-main">
-            <div class="profile-stats">
+          <div class="profile-sub-section2">
+            <h3 id="username">{{ request.user.username }}</h3>
 
-                <div class="profile-sub-section1">
-                    <img src="{% static "man.png" %}" alt="profile picture">
-                </div>
-
-                <div class="profile-sub-section2">
-                    <h3 id="username">{{ request.user.username }}</h3>
-
-                    <div class="stats">
-                        <div class="post-stats">
-                            <h4 class="stats-numbers">4</h4>
-                            <p class="stats-title">Posts</p>
-                        </div>
-                        <div class="post-stats">
-                            <h4 class="stats-numbers">275</h4>
-                            <div class="stats-title">Followers</div>
-                        </div>
-                        <div class="post-stats">
-                            <h4 class="stats-numbers">504</h4>
-                            <p class="stats-title">Following</p>
-                        </div>
-                        
-                    </div>
-
-
-                    <div class="user-details">
-                        <h5 class="full-name">{{ request.user.name }}</h5>
-                        <p class="about">
-                            22 <br>
-                            Guwahati, Assam <br>
-                            Indian <br>
-                        </p>
-                    </div>
-                </div>
+            <div class="stats">
+              <div class="post-stats">
+                <h4 class="stats-numbers">4</h4>
+                <p class="stats-title">Posts</p>
+              </div>
+              <div class="post-stats">
+                <h4 class="stats-numbers">275</h4>
+                <div class="stats-title">Followers</div>
+              </div>
+              <div class="post-stats">
+                <h4 class="stats-numbers">504</h4>
+                <p class="stats-title">Following</p>
+              </div>
             </div>
-        </div>
-        
-        
 
-        <div class="gallery">
-            <hr>
-
-            <div class="user-posts">
-                <h3 class="title">Posts</h3>
-
-                <div class="gallery-struct">
-
-                    {% for userPost in user_post reversed %}
-                    
-                        <div class="post-struct">
-                            <img class="post-pic" src="{{ userPost.post_image.url }}" alt="">
-                        </div>
-
-                    {% endfor %} 
-
-                    {% comment %} <div class="post-struct">
-                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
-                    </div>
-
-                    <div class="post-struct">
-                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
-                    </div>
-
-                    <div class="post-struct">
-                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
-                    </div>
-                    <div class="post-struct">
-                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
-                    </div>
-                    <div class="post-struct">
-                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
-                    </div>
-                    <div class="post-struct">
-                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
-                    </div>
-                    <div class="post-struct">
-                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
-                    </div>
-                    <div class="post-struct">
-                        <img class="post-pic" src="{% static "rose.jpg" %}" alt="">
-                    </div>
-                    <div class="post-struct">
-                        <img class="post-pic" src="{% static "rose.jpg" %}" alt=""> 
-                    </div>  {% endcomment %}
-                </div>
+            <div class="user-details">
+              <h5 class="full-name">{{ request.user.name }}</h5>
+              <p class="about">
+                22 <br />
+                Guwahati, Assam <br />
+                Indian <br />
+              </p>
             </div>
+
+            <div class="user-changesBtns">
+              <button class="user-profile-editBtn" id="myBtn">
+                Edit Profile
+              </button>
+            </div>
+
+            <div id="myModal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <h1 class="createPost">Edit Profile Details</h1>
+
+                <hr />
+
+                <form
+                  action=""
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="EditProfileDetails"
+                >
+                  {% csrf_token %}
+                  <label for="" class="EditProfileDetails-text">Username</label>
+                  <input type="text" name="profile-username" id="" class="EditProfileDetails-input"/>
+                    <br>
+                  <label for="" class="EditProfileDetails-text">Name</label>
+                  <input type="text" name="profile-name" id="" class="EditProfileDetails-input">
+                    <br>
+                  <label for="" class="EditProfileDetails-text" >Bio</label>
+                  <textarea name="profile-bio" id="" class="EditProfileDetails-input" rows="4" wrap="hard" maxlength="80"></textarea>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="gallery">
+        <hr />
+
+        <div class="user-posts">
+          <h3 class="title">Posts</h3>
+
+          <div class="gallery-struct">
+            {% for userPost in user_post reversed %}
+            <div class="post-struct">
+              <img
+                class="post-pic"
+                src="{{ userPost.post_image.url }}"
+                alt=""
+              />
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
     </div>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/24b543e59b.js"
+    crossorigin="anonymous"
+  ></script>
 
-    
-</body>
-<script src="https://kit.fontawesome.com/24b543e59b.js" crossorigin="anonymous"></script>
+  <script>
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
 </html>

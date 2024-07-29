@@ -67,6 +67,45 @@
     font-weight: 300;
 }
 
+.user-changesBtns{
+    margin: 15px 0;
+}
+
+.user-profile-editBtn{
+    padding: 6px 8px;
+    width: 8rem;
+    border: none;
+    border-radius: 6%;
+    background-color: rgb(226, 226, 226);
+}
+
+.user-profile-editBtn:hover{
+    cursor: pointer;
+    background-color: rgb(219, 219, 219);
+}
+
+
+.EditProfileDetails{
+    display: flex;
+    flex-direction: column;
+}
+
+.EditProfileDetails-text{
+    font-size: 16px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 8px 0px 5px;
+}
+
+.EditProfileDetails-input{
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    color: rgb(91, 91, 91);
+    outline: none;
+    border: none;
+    border-bottom: 2px solid rgb(161, 227, 255);
+}
+
 .full-name{
     font-size: 13px;
 }
