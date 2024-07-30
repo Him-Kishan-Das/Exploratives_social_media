@@ -327,6 +327,9 @@ def load_comments(request, post_id):
     comments_data = [{'username': comment.user.username, 'user_comment': comment.user_comment} for comment in comments]
     return JsonResponse({'comments': comments_data})
 
+def search(request):
+    return render(request, 'search.html')
+
 def usernames(request):
     usr = users.objects.all()
     context = {'usrx': usr}

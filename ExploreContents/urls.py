@@ -12,4 +12,5 @@ urlpatterns = [
     path('comment-btn/', views.comment),
     path('load-comments/<int:post_id>/', views.load_comments, name='load_comments'),
     path('edit-profile/', views.EditProfile),
+    path('search/', views.search)
 ]
