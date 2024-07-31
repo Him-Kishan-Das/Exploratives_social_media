@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search Page</title>
-    <link rel="stylesheet" href="/static/search.css">
-    <link rel="stylesheet" href="/static/header.css">
-    <link rel="stylesheet" href="/static/left-navigation.css">
-</head>
-<body style="padding: 0; margin: 0; ">
-    <div id="header">
-        {% include "header.html" %}
-    </div>
+    <link rel="stylesheet" href="/static/search.css" />
+    <link rel="stylesheet" href="/static/header.css" />
+    <link rel="stylesheet" href="/static/left-navigation.css" />
+  </head>
+  <body style="padding: 0; margin: 0">
+    <div id="header">{% include "header.html" %}</div>
     <div class="container">
-        <div class="left-sidebar">
-            {% include "left-navigation.html" %}
+      <div class="left-sidebar">{% include "left-navigation.html" %}</div>
+      <div class="middleSearchContainer">
+        {% for userX in users %}
+        <div class="search_profile_details">
+          <img src="/static/man.png" alt="" />
+          <div class="search-profile">
+            <h2 class="search-profile-username">{{ userX.username }}</h2>
+            <p class="search-profile-name">{{ userX.name }}</p>
+          </div>
+          <button class="profile-followBtn">Follow</button>
         </div>
-        <div class="middleSearchContainer">
-
-        </div>
-        <div class="right-sidebar">
-            <img src="/static/search.png" alt="" style="height: 46.2rem; width: 100%">
-        </div>
+        <hr />
+        {% empty %}
+            <p>No users found.</p>
+        {% endfor %}
     </div>
-</body>
+      <div class="right-sidebar">
+        <img
+          src="/static/search.png"
+          alt=""
+          style="height: 46.2rem; width: 100%"
+        />
+      </div>
+    </div>
+  </body>
 </html>

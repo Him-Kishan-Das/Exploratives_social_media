@@ -156,10 +156,11 @@ from .models import CustomUser as users, Post, Likes, Comments
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.template import loader
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
+from django.db.models import Q
 from PIL import Image
 
 def signup(request):
@@ -328,7 +329,17 @@ def load_comments(request, post_id):
     return JsonResponse({'comments': comments_data})
 
 def search(request):
-    return render(request, 'search.html')
+    if request.method == 'GET':
+        keyword = request.GET.get('search')
+        print(keyword)
+        users = get_user_model()
+        userx = users.objects.filter(
+            Q(username__icontains=keyword) | 
+            Q(name__icontains=keyword)
+        )
+
+        context = {'keyword': keyword, 'users': userx}
+        return render(request, 'search.html', context)
 
 def usernames(request):
     usr = users.objects.all()

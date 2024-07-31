@@ -7,12 +7,13 @@
   </div>
   <div class="middle-header">
     {% comment %} search bar {% endcomment %}
-    <div class="search-bar">
+    <form action="/search/" method="get" class="search-bar">
+      {% csrf_token %}
       <input type="text" placeholder="search" name="search" id="search-text" />
       <button id="search-btn">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
-    </div>
+    </form>
   </div>
 
   {% comment %} right section header {% endcomment %}

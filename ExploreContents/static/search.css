@@ -9,6 +9,52 @@
 
 .middleSearchContainer{
     width: 45%;
+    border-left: 1px solid rgb(208, 208, 208);
+}
+
+.search_profile_details{
+    display: flex;
+    flex-direction: row;
+    padding: 13px 35px;
+    /* justify-content: space-between; */
+}
+
+.search_profile_details:hover{
+    background-color: rgb(226, 226, 226);
+    cursor: pointer;
+}
+
+.search_profile_details > img{
+    width: 3rem;
+    border: 0.5px solid rgb(13, 111, 224);
+    border-radius: 50%;
+}
+
+.search-profile{
+    margin: 0px 25px;
+    width: 342px;
+}
+
+.profile-followBtn{
+    margin-left: 50px;
+    width: 90px;
+    height: 30px;
+    align-self: center;
+    border-radius: 20px;
+    background-color: rgb(203, 216, 255);
+    border: none;
+    color: blue;
+    font-size: 15px;
+}
+
+.profile-followBtn:hover{
+    color: white;
+    background-color: blue;
+    cursor: pointer;
+}
+
+.search-profile-username{
+    font-size: 20px;
 }
 
 .right-sidebar{
