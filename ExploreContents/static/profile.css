@@ -85,6 +85,19 @@
     background-color: rgb(219, 219, 219);
 }
 
+.user-profile-followBtn{
+    padding: 8px;
+    width: 8rem;
+    border-radius: 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+}
+
+.user-profile-followBtn:hover{
+    background-color: rgb(9, 9, 210);
+    cursor: pointer;
+}
 
 .EditProfileDetails{
     display: flex;
