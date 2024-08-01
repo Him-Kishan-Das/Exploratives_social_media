@@ -152,7 +152,7 @@
 
 
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import CustomUser as users, Post, Likes, Comments
+from .models import CustomUser as users, Post, Likes, Comments, Follow
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.template import loader
@@ -240,15 +240,31 @@ def profile(request, username):
     
     # Fetch the posts for the user whose profile is being viewed
     user_post = Post.objects.filter(user=user)
+    is_following = Follow.objects.filter(follower=request.user, following=user).exists()
     
     context = {
         'profile_user': user,
-        'user_posts': user_post
+        'user_posts': user_post,
+        'is_following': is_following
     }
     id = request.user.id
     # user_post = Post.objects.filter(user_id=id)
     # context = {'user_post': user_post}
     return render(request, 'profile.html', context)
+
+def follow_unfollow_user(request, username):
+    user_to_follow = get_object_or_404(users, username=username)
+    follow, created = Follow.objects.get_or_create(follower=request.user, following=user_to_follow)
+    
+    if created:
+        # print(f"{request.user.username} followed {user_to_follow.username}")  # Debugging
+        pass
+    else:
+        follow.delete()
+        # print(f"{request.user.username} unfollowed {user_to_follow.username}")  # Debugging
+    
+    return redirect('profile', username=user_to_follow.username)
+
 
 def EditProfile(request):
     if request.method == 'POST':

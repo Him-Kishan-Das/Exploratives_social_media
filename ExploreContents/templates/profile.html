@@ -17,7 +17,11 @@
       <div class="profile-stats-main">
         <div class="profile-stats">
           <div class="profile-sub-section1">
-            <img src="{{ profile_user.profile_picture.url }}" alt="profile picture" class="profile-picture">
+            <img
+              src="{{ profile_user.profile_picture.url }}"
+              alt="profile picture"
+              class="profile-picture"
+            />
           </div>
 
           <div class="profile-sub-section2">
@@ -40,20 +44,25 @@
 
             <div class="user-details">
               <h5 class="full-name">{{ profile_user.name }}</h5>
-              <p class="about">
-                {{ profile_user.user_bio|linebreaksbr }}
-              </p>
+              <p class="about">{{ profile_user.user_bio|linebreaksbr }}</p>
             </div>
 
             <div class="user-changesBtns">
               {% if profile_user.username == request.user.username %}
-                <button class="user-profile-editBtn" id="myBtn">
-                  Edit Profile
-                </button>
+              <button class="user-profile-editBtn" id="myBtn">
+                Edit Profile
+              </button>
               {% else %}
-                <button class="user-profile-followBtn">
-                  Follow
+              <form action="{% url 'follow_unfollow_user' username=profile_user.username %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="user-profile-followBtn">
+                    {% if is_following %}
+                        Unfollow
+                    {% else %}
+                        Follow
+                    {% endif %}
                 </button>
+            </form>
               {% endif %}
             </div>
 
@@ -73,19 +82,50 @@
                   class="EditProfileDetails"
                 >
                   {% csrf_token %}
-                  <label for="" class="EditProfileDetails-text">Change Profile Picture </label>
-                  <input type="file" name="profile-picture" class="EditProfileDetails-input" id="" accept="image/*" />
+                  <label for="" class="EditProfileDetails-text"
+                    >Change Profile Picture
+                  </label>
+                  <input
+                    type="file"
+                    name="profile-picture"
+                    class="EditProfileDetails-input"
+                    id=""
+                    accept="image/*"
+                  />
 
                   <label for="" class="EditProfileDetails-text">Username</label>
-                  <input type="text" name="profile-username" id="" class="EditProfileDetails-input" value="{{ request.user.username }}"/>
-                    <br>
+                  <input
+                    type="text"
+                    name="profile-username"
+                    id=""
+                    class="EditProfileDetails-input"
+                    value="{{ request.user.username }}"
+                  />
+                  <br />
                   <label for="" class="EditProfileDetails-text">Name</label>
-                  <input type="text" name="profile-name" id="" class="EditProfileDetails-input" value="{{ request.user.name }}" >
-                    <br>
-                  <label for="" class="EditProfileDetails-text" >Bio</label>
-                  <textarea name="profile-bio" id="" class="EditProfileDetails-input" rows="4" wrap="hard" maxlength="80">{{ request.user.user_bio|safe }}</textarea>
-                  
-                  <button type="submit" class="EditProfileDetails-ChangesBtn">Save Changes</button>
+                  <input
+                    type="text"
+                    name="profile-name"
+                    id=""
+                    class="EditProfileDetails-input"
+                    value="{{ request.user.name }}"
+                  />
+                  <br />
+                  <label for="" class="EditProfileDetails-text">Bio</label>
+                  <textarea
+                    name="profile-bio"
+                    id=""
+                    class="EditProfileDetails-input"
+                    rows="4"
+                    wrap="hard"
+                    maxlength="80"
+                  >
+{{ request.user.user_bio|safe }}</textarea
+                  >
+
+                  <button type="submit" class="EditProfileDetails-ChangesBtn">
+                    Save Changes
+                  </button>
                 </form>
               </div>
             </div>
