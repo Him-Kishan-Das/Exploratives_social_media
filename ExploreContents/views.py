@@ -236,16 +236,27 @@ def profile(request, username):
     else:
         user = get_object_or_404(CustomUser, username=username)
     
-    user_post = Post.objects.filter(user=user)
+    user_posts = Post.objects.filter(user=user)
     is_following = Follow.objects.filter(follower=request.user, following=user).exists()
     
-    context = {        'profile_user': user,
-        'user_posts': user_post,
-        'is_following': is_following
+    # Count the number of posts
+    post_count = user_posts.count()
+    
+    # Count the number of followers
+    follower_count = Follow.objects.filter(following=user).count()
+    
+    # Count the number of following
+    following_count = Follow.objects.filter(follower=user).count()
+    
+    context = {
+        'profile_user': user,
+        'user_posts': user_posts,
+        'is_following': is_following,
+        'post_count': post_count,
+        'follower_count': follower_count,
+        'following_count': following_count
     }
-    id = request.user.id
-    # user_post = Post.objects.filter(user_id=id)
-    # context = {'user_post': user_post}
+    
     return render(request, 'profile.html', context)
 
 def follow_unfollow_user(request, username):
