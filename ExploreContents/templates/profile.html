@@ -48,9 +48,18 @@
                 <div class="followersRelease-modal-content">
                   <span class="followersRelease-close">&times;</span>
                   <h2>Followers</h2>
-                  <ul id="followerList">
-                    <!-- List of followers will be dynamically inserted here -->
-                  </ul>
+                  {% for follower in follower_details %}
+                      <!-- List of followers will be dynamically inserted here -->
+                      <div id="followerList" class="follower-following-profile-details">
+                        <div class="follower-following-profile-picture">
+                          <img src="{{ follower.profile_picture.url }}" class="follower-following-profile-img">
+                        </div>
+                        <div style="margin: 0 14px;">
+                          <p id="follower-following-profile-username">{{ follower.username }}</p>
+                          <p id="follower-following-profile-name">{{ follower.name }}</p>
+                        </div>
+                      </div>
+                  {% endfor %}
                 </div>
               </div>
 
@@ -71,9 +80,18 @@
               <div class="followingRelease-modal-content">
                 <span class="followingRelease-close">&times;</span>
                 <h2>Following</h2>
-                <ul id="followingList">
-                  <!-- List of following will be dynamically inserted here -->
-                </ul>
+                {% for following in following_details %}
+                      <!-- List of followers will be dynamically inserted here -->
+                      <div id="followerList" class="follower-following-profile-details">
+                        <div class="follower-following-profile-picture">
+                          <img src="{{ following.profile_picture.url }}" class="follower-following-profile-img">
+                        </div>
+                        <div style="margin: 0 14px;">
+                          <p id="follower-following-profile-username">{{ following.username }}</p>
+                          <p id="follower-following-profile-name">{{ following.name }}</p>
+                        </div>
+                      </div>
+                  {% endfor %}
               </div>
             </div>
 

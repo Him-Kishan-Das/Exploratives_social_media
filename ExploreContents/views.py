@@ -242,11 +242,15 @@ def profile(request, username):
     # Count the number of posts
     post_count = user_posts.count()
     
-    # Count the number of followers
-    follower_count = Follow.objects.filter(following=user).count()
+    # Get the list of followers with all details
+    followers = Follow.objects.filter(following=user).select_related('follower')
+    follower_count = followers.count()
+    follower_details = [follow.follower for follow in followers]
     
-    # Count the number of following
-    following_count = Follow.objects.filter(follower=user).count()
+    # Get the list of following with all details
+    following = Follow.objects.filter(follower=user).select_related('following')
+    following_count = following.count()
+    following_details = [follow.following for follow in following]
     
     context = {
         'profile_user': user,
@@ -254,7 +258,9 @@ def profile(request, username):
         'is_following': is_following,
         'post_count': post_count,
         'follower_count': follower_count,
-        'following_count': following_count
+        'following_count': following_count,
+        'follower_details': follower_details,
+        'following_details': following_details
     }
     
     return render(request, 'profile.html', context)
