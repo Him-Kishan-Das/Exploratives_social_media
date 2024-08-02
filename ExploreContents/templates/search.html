@@ -15,7 +15,10 @@
       <div class="middleSearchContainer">
         {% for userX in users %}
     <a href="{% url 'profile' userX.username %}" class="search_profile_details">
-        <img src="/static/man.png" alt="" />
+
+        <div class="search-profile-pic">
+          <img src="{{ userX.profile_picture.url }}" alt="" class="search-profile-img" />
+        </div>
         <div class="search-profile">
             <h2 class="search-profile-username">{{ userX.username }}</h2>
             <p class="search-profile-name">{{ userX.name }}</p>

@@ -16,19 +16,32 @@
     display: flex;
     flex-direction: row;
     padding: 13px 35px;
-    /* justify-content: space-between; */
 }
 
 .search_profile_details:hover{
     background-color: rgb(226, 226, 226);
     cursor: pointer;
 }
+.search-profile-pic{
+    width: 40px; /* Set the desired width */
+    height: 40px; /* Set the desired height */
+    overflow: hidden; /* Hide overflow */
+    border-radius: 50%;
+    border: 3px solid rgb(82, 7, 74);
+}
 
-.search_profile_details > img{
+.search-profile-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* .search_profile_details > img{
     width: 3rem;
     border: 0.5px solid rgb(13, 111, 224);
     border-radius: 50%;
-}
+} */
 
 .search-profile{
     margin: 0px 25px;

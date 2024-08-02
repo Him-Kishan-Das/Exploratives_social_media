@@ -2,7 +2,9 @@
 
 <div class="right-menuContainer">
     <div class="profile">
-        <img src="{% static "man.png" %}" class="profile-img" alt="logo">
+        <div class="right-profile">
+            <img src="{{ request.user.profile_picture.url }}" class="right-sidebar-profile-img" alt="logo">
+        </div>
         <div class="sub-profile">
             <h4 class="profile-username">{{ request.user.username }}</h4>
             <p class="profile-name">{{ request.user.name }}</p>
@@ -13,7 +15,9 @@
         <h4 class="suggest-heading">Suggested for you</h4>
         <div class="suggested-profiles">
             <div class="profile">
-                <img src="{% static "man.png" %}" class="profile-img" alt="logo">
+                <div class="right-profile">
+                    <img src="{% static "man.png" %}" class="right-sidebar-profile-img" alt="logo">
+                </div>
                 <div class="sub-profile">
                     <h4 class="profile-username">him_kishan_das01</h4>
                     <p class="profile-name">Him Kishan Das</p>
@@ -23,7 +27,9 @@
         </div>
         <div class="suggested-profiles">
             <div class="profile">
-                <img src="{% static "man.png" %}" class="profile-img" alt="logo">
+                <div class="right-profile">
+                    <img src="{% static "man.png" %}" class="right-sidebar-profile-img" alt="logo">
+                </div>
                 <div class="sub-profile">
                     <h4 class="profile-username">him_kishan_das01</h4>
                     <p class="profile-name">Him Kishan Das</p>
@@ -33,7 +39,9 @@
         </div>
         <div class="suggested-profiles">
             <div class="profile">
-                <img src="{% static "man.png" %}" class="profile-img" alt="logo">
+                <div class="right-profile">
+                    <img src="{% static "man.png" %}" class="right-sidebar-profile-img" alt="logo">
+                </div>
                 <div class="sub-profile">
                     <h4 class="profile-username">him_kishan_das01</h4>
                     <p class="profile-name">Him Kishan Das</p>
@@ -43,7 +51,9 @@
         </div>
         <div class="suggested-profiles">
             <div class="profile">
-                <img src="{% static "man.png" %}" class="profile-img" alt="logo">
+                <div class="right-profile">
+                    <img src="{% static "man.png" %}" class="right-sidebar-profile-img" alt="logo">
+                </div>
                 <div class="sub-profile">
                     <h4 class="profile-username">him_kishan_das01</h4>
                     <p class="profile-name">Him Kishan Das</p>
@@ -51,5 +61,6 @@
             </div>
             <button id="follow-btn">Follow</button>
         </div>
+        
     </div>
 </div>

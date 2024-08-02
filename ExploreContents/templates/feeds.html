@@ -6,8 +6,10 @@
 <div class="feeds-container">
   <div class="sub-container1">
     {% comment %} profile image {% endcomment %}
-    <div class="profile">
-      <img src="{% static "man.png" %}" class="profile-img" alt="logo">
+    <div class="sub-container1-profile">
+      <div class="profile-pic">
+        <img src="{{ post.user.profile_picture.url }}" class="profile-img" alt="logo">
+      </div>
 {% comment %} 
       {% for userProfile in userx %}
         {% if post.user_id == userProfile.id %} {% endcomment %}
