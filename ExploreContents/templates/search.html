@@ -14,26 +14,26 @@
       <div class="left-sidebar">{% include "left-navigation.html" %}</div>
       <div class="middleSearchContainer">
         {% for userX in users %}
-    <a href="{% url 'profile' userX.username %}" class="search_profile_details">
+        <a href="{% url 'profile' userX.username %}" class="search_profile_details">
 
-        <div class="search-profile-pic">
-          <img src="{{ userX.profile_picture.url }}" alt="" class="search-profile-img" />
-        </div>
-        <div class="search-profile">
-            <h2 class="search-profile-username">{{ userX.username }}</h2>
-            <p class="search-profile-name">{{ userX.name }}</p>
-        </div>
-        <form action="{% url 'follow_unfollow_user' username=userX.username %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="profile-followBtn">
-                {% if is_following.userX.id %}
-                    Unfollow
-                {% else %}
-                    Follow
-                {% endif %}
-            </button>
-        </form>
-    </a>
+            <div class="search-profile-pic">
+              <img src="{{ userX.profile_picture.url }}" alt="" class="search-profile-img" />
+            </div>
+            <div class="search-profile">
+                <h2 class="search-profile-username">{{ userX.username }}</h2>
+                <p class="search-profile-name">{{ userX.name }}</p>
+            </div>
+            <form action="{% url 'follow_unfollow_user' username=userX.username %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="profile-followBtn">
+                    {% if is_following.userX.id %}
+                        Unfollow
+                    {% else %}
+                        Follow
+                    {% endif %}
+                </button>
+            </form>
+        </a>
 
         <hr />
         {% empty %}

@@ -1,96 +1,136 @@
-
-{% load static %} 
-
-
-{% block content %} {% for post in posts reversed %}
+{% load static %} {% block content %} {% for post in posts reversed %}
 <div class="feeds-container">
   <div class="sub-container1">
     {% comment %} profile image {% endcomment %}
     <div class="sub-container1-profile">
       <div class="profile-pic">
-        <img src="{{ post.user.profile_picture.url }}" class="profile-img" alt="logo">
+        <img
+          src="{{ post.user.profile_picture.url }}"
+          class="profile-img"
+          alt="logo"
+        />
       </div>
-{% comment %} 
-      {% for userProfile in userx %}
-        {% if post.user_id == userProfile.id %} {% endcomment %}
+      {% comment %} {% for userProfile in userx %} {% if post.user_id ==
+      userProfile.id %} {% endcomment %}
 
-          <div class="sub-profile">
-            <h4 class="profile-username">{{ post.user.get_username }}</h4>
-            <p class="profile-name">{{ post.user.name }}</p>
+      <div class="sub-profile">
+        <h4 class="profile-username">{{ post.user.get_username }}</h4>
+        <p class="profile-name">{{ post.user.name }}</p>
+      </div>
 
-          </div>
-
-
-        {% comment %} {% endif %}
-      {% endfor %} {% endcomment %}
+      {% comment %} {% endif %} {% endfor %} {% endcomment %}
     </div>
   </div>
 
-  <img src="{{ post.post_image.url }}" alt="kitten-photo" class="feeds-picture">
-
+  <img
+    src="{{ post.post_image.url }}"
+    alt="kitten-photo"
+    class="feeds-picture"
+  />
 
   <div class="sub-container2">
     <div class="likes-comment-section">
       <form action="/like-btn/" method="post">
         {% csrf_token %}
-        <input type="hidden" name="post_id" value="{{ post.id }}">
+        <input type="hidden" name="post_id" value="{{ post.id }}" />
         {% if post.id in liked_post_ids %}
-          <button type="submit" style="background: none; border: none; margin-right: 8px;">
-              <i class="fa-regular fa-heart" style="color: red;"></i>
-          </button>
+        <button
+          type="submit"
+          style="background: none; border: none; margin-right: 8px"
+        >
+          <i class="fa-regular fa-heart" style="color: red"></i>
+        </button>
         {% else %}
-          <button type="submit" style="background: none; border: none; margin-right: 8px">
-            <i class="fa-regular fa-heart"></i>
-          </button>
+        <button
+          type="submit"
+          style="background: none; border: none; margin-right: 8px"
+        >
+          <i class="fa-regular fa-heart"></i>
+        </button>
         {% endif %}
       </form>
 
+      <button
+        type="submit"
+        id="openModalBtn{{ post.id }}"
+        onclick="loadComments({{ post.id }})"
+        style="background: none; border: none; margin-right: 8px"
+      >
+        <i class="fa-regular fa-comment"></i>
+      </button>
 
-        <button type="submit" id="openModalBtn{{ post.id }}" onclick="loadComments({{ post.id }})" style="background: none; border: none; margin-right: 8px">
-          <i class="fa-regular fa-comment"></i>
-        </button>
-      
-
-        {% comment %} comment modal starts here  {% endcomment %}
-        <div id="uniqueModal{{ post.id }}" class="unique-modal">
-          <!-- Modal content -->
-          <div class="unique-modal-content">
-              <span class="unique-close" onclick="closeModal({{ post.id }})">&times;</span>
-              <h1 style="text-align: center;">Comments</h1>
-              <hr>
-              <div id="comments-container-{{ post.id }}" class="comment-container">
-                  <!-- Comments will be loaded here -->
-                  {% comment %} <hr> {% endcomment %}
-                  {% comment %} <form action="/comment-btn/" method="post" class="newComment">
-                      {% csrf_token %}
-                      <input type="hidden" name="newComment_postid" value="{{ post.id }}" />
-                      <input type="text" name="newComment" class="newComment-input"/>
-                      <button type="submit" class="newCommentPostBtn">Post</button>
-                  </form> {% endcomment %}
-              </div>
+      {% comment %} comment modal starts here {% endcomment %}
+      <div id="uniqueModal{{ post.id }}" class="unique-modal">
+        <!-- Modal content -->
+        <div class="unique-modal-content">
+          <span class="unique-close" onclick="closeModal({{ post.id }})"
+            >&times;</span
+          >
+          <h1 style="text-align: center">Comments</h1>
+          <hr />
+          <div id="comments-container-{{ post.id }}" class="comment-container">
+            <!-- Comments will be loaded here -->
+            {% comment %}
+            <hr />
+            {% endcomment %} {% comment %}
+            <form action="/comment-btn/" method="post" class="newComment">
+              {% csrf_token %}
+              <input
+                type="hidden"
+                name="newComment_postid"
+                value="{{ post.id }}"
+              />
+              <input type="text" name="newComment" class="newComment-input" />
+              <button type="submit" class="newCommentPostBtn">Post</button>
+            </form>
+            {% endcomment %}
           </div>
+        </div>
       </div>
-      
 
-    {% comment %} comment modal ends here  {% endcomment %}
-      
+      {% comment %} comment modal ends here {% endcomment %}
     </div>
     <div class="save">
       <i class="fa-regular fa-bookmark"></i>
     </div>
   </div>
-
+  {% comment %}
+  <p class="liked-by">Liked by: <a href="">him_kishan_das01</a></p>
+  {% endcomment %} {% comment %}
   <div class="likes-view">
-    <p>{{ post.total_likes }} likes</p>
+    <p>
+      Liked by <a href="#" id="likes-link">{{ post.total_likes }} peoples</a>
+    </p>
+  </div>
+  {% endcomment %}
+  <div class="likes-view">
+    <p>
+      Liked by
+      <a href="#" id="likes-link-{{ post.id }}"
+        >{{ post.total_likes }} peoples</a
+      >
+    </p>
+  </div>
+
+  <!-- Modal -->
+  <div id="likesModal-{{ post.id }}" class="modal">
+    <div class="modal-content">
+      <span class="close" data-postid="{{ post.id }}">&times;</span>
+      <h5>People who liked this post</h5>
+      <ul>
+        {% for like in post.liked_by %}
+                    <li>{{ like.user.username }}</li>
+                {% endfor %}
+      </ul>
+    </div>
   </div>
 
   <div class="caption">{{ post.post_caption }}</div>
 
   <div class="date">
-    <p> {{ post.post_timestamp|date:"d F, Y" }}</p>
+    <p>{{ post.post_timestamp|date:"d F, Y" }}</p>
   </div>
 </div>
-    
 
 {% endfor %} {% endblock %}
 
@@ -98,27 +138,29 @@
 <script>
   function loadComments(postId) {
     $.ajax({
-        url: `/load-comments/${postId}/`,
-        type: "GET",
-        success: function(response) {
-            let commentsContainer = document.getElementById(`comments-container-${postId}`);
-            commentsContainer.innerHTML = '';
-            response.comments.forEach(comment => {
-                let div = document.createElement('div');
-                div.classList.add('user-comment');
-                div.innerHTML = `
+      url: `/load-comments/${postId}/`,
+      type: "GET",
+      success: function (response) {
+        let commentsContainer = document.getElementById(
+          `comments-container-${postId}`
+        );
+        commentsContainer.innerHTML = "";
+        response.comments.forEach((comment) => {
+          let div = document.createElement("div");
+          div.classList.add("user-comment");
+          div.innerHTML = `
                     <img src="/static/man.png" alt="" class="user-comment-profile">
                     <div style="padding-left: 5px">
                         <h4 class="user-comment-username">${comment.username}</h4>
                         <p class="user-comment-text">${comment.user_comment}</p>
                     </div>
                 `;
-                commentsContainer.appendChild(div);
-            });
+          commentsContainer.appendChild(div);
+        });
 
-            // Add the form for new comments
-            let formDiv = document.createElement('div');
-            formDiv.innerHTML = `
+        // Add the form for new comments
+        let formDiv = document.createElement("div");
+        formDiv.innerHTML = `
                 <hr>
                 <form action="/comment-btn/" method="post" class="newComment">
                     {% csrf_token %}
@@ -127,19 +169,51 @@
                     <button type="submit" class="newCommentPostBtn">Post</button>
                 </form>
             `;
-            commentsContainer.appendChild(formDiv);
+        commentsContainer.appendChild(formDiv);
 
-            document.getElementById(`uniqueModal${postId}`).style.display = 'block';
-        },
-        error: function(error) {
-            console.log("Error:", error);
-        }
+        document.getElementById(`uniqueModal${postId}`).style.display = "block";
+      },
+      error: function (error) {
+        console.log("Error:", error);
+      },
     });
-}
+  }
 
-function closeModal(postId) {
-    document.getElementById(`uniqueModal${postId}`).style.display = 'none';
-}
+  function closeModal(postId) {
+    document.getElementById(`uniqueModal${postId}`).style.display = "none";
+  }
 
+  function showModal(postId) {
+    var modal = document.getElementById("likesModal-" + postId);
+    modal.style.display = "block";
+  }
 
+  // Function to hide modal
+  function hideModal(postId) {
+    var modal = document.getElementById("likesModal-" + postId);
+    modal.style.display = "none";
+  }
+
+  // Add event listeners to all links and close buttons
+  document.querySelectorAll('[id^="likes-link-"]').forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      event.preventDefault();
+      var postId = this.id.split("-")[2];
+      showModal(postId);
+    });
+  });
+
+  document.querySelectorAll(".close").forEach(function (span) {
+    span.addEventListener("click", function () {
+      var postId = this.getAttribute("data-postid");
+      hideModal(postId);
+    });
+  });
+
+  // Close modal when clicking outside of it
+  window.onclick = function (event) {
+    if (event.target.classList.contains("modal")) {
+      event.target.style.display = "none";
+    }
+  };
 </script>

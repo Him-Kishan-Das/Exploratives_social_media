@@ -213,11 +213,13 @@ def login_page(request):
 @login_required
 def home(request):
     # Assuming you have a Post model with a 'user' field (ForeignKey to CustomUser)
-    posts = Post.objects.select_related('user').all()  # Use 'user' instead of 'user__customuser'
+    posts = Post.objects.select_related('user').all()
     liked_post_ids = Likes.objects.filter(user=request.user).values_list('post_id', flat=True)
     
     for post in posts:
         post.total_likes = Likes.objects.filter(post=post).count()
+        post.liked_by = Likes.objects.filter(post=post).select_related('user')
+    
     context = {'posts': posts, 'liked_post_ids': liked_post_ids}
     return render(request, 'index.html', context)
 
