@@ -227,23 +227,17 @@ def my_logout_view(request):
     return redirect('login')
 
 def profile(request, username):
-    # username = request.user.username
-    # Your logic to fetch user profile data...
     CustomUser = get_user_model()
     
-    # Check if the username matches the logged-in user's username
     if request.user.is_authenticated and request.user.username == username:
         user = request.user
     else:
-        # Fetch the user profile based on the username parameter
         user = get_object_or_404(CustomUser, username=username)
     
-    # Fetch the posts for the user whose profile is being viewed
     user_post = Post.objects.filter(user=user)
     is_following = Follow.objects.filter(follower=request.user, following=user).exists()
     
-    context = {
-        'profile_user': user,
+    context = {        'profile_user': user,
         'user_posts': user_post,
         'is_following': is_following
     }

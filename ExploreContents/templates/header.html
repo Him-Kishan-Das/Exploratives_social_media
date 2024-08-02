@@ -74,7 +74,7 @@
 
     <div class="dropdown nav-link">
         <button class="dropbtn" onclick="dropDown()">
-            <img class="nav_profile" src="{% static 'man.png' %}">
+            <img class="nav_profile" src="{{ request.user.profile_picture.url }}">
             
         </button>
         <div class="dropdown-content profile-content" id="myDropdown">

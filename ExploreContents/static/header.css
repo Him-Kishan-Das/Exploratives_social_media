@@ -11,7 +11,7 @@ body{
 
 header{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     background-color: rgb(250, 250, 250) ;
     border: solid 0px 0px 2px 0px;
@@ -60,6 +60,7 @@ header{
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    width: 40%;
     margin: 0px -15% 0 0;
 }
 
@@ -70,7 +71,7 @@ header{
     font-size: 16px;
     padding: 8px 12px;
     border-radius: 7px;
-    margin-right: 6%;
+    margin: 0 10%;
     width: 8.5rem;
 }
 
@@ -151,8 +152,6 @@ header{
     background-color: #0056b3;
 }
 
-
-
 /* user drop down style starts here  */
 
 .drop_down_link{
@@ -170,10 +169,19 @@ header{
     padding-right: 20px;
 }
 
+.dropbtn{
+    width: 50px; /* Set the desired width */
+    height: 50px; /* Set the desired height */
+    overflow: hidden; /* Hide overflow */
+    border-radius: 50%;
+    margin-left: 35%
+}
+
 .nav_profile{
-    padding-left: 14px;
-        width: 9.5%;
-        margin-right: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the container */
+    object-position: center;
 } 
 
 
