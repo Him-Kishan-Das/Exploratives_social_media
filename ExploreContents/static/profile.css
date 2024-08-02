@@ -200,7 +200,7 @@
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 25%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button for Followers Modal */
@@ -238,7 +238,12 @@
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 25%; /* Could be more or less, depending on screen size */
+}
+
+.followingRelease-modal-content > h2{
+    text-align: center;
+    margin: 15px 0px;
 }
 
 /* The Close Button for Following Modal */
@@ -265,7 +270,11 @@
     margin: 20px;
 }
 
-
+.follower-following-profile-details{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+}
 
 .follower-following-profile-picture{
     width: 40px; /* Set the desired width */
