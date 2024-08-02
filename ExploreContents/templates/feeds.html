@@ -14,7 +14,9 @@
       userProfile.id %} {% endcomment %}
 
       <div class="sub-profile">
-        <h4 class="profile-username">{{ post.user.get_username }}</h4>
+        <a href="{% url 'profile' post.user.get_username %}">
+          <h4 class="profile-username">{{ post.user.get_username }}</h4>
+        </a>
         <p class="profile-name">{{ post.user.name }}</p>
       </div>
 
