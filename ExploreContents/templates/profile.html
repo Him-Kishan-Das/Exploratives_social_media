@@ -33,12 +33,47 @@
                 <p class="stats-title">Posts</p>
               </div>
               <div class="post-stats">
-                <h4 class="stats-numbers">{{ follower_count }}</h4>
+                <h4
+                  class="stats-numbers"
+                  id="followerCount"
+                  style="cursor: pointer"
+                >
+                  {{ follower_count }}
+                </h4>
                 <div class="stats-title">Followers</div>
               </div>
+
+              <!-- Followers Modal -->
+              <div id="followersReleaseModal" class="followersRelease-modal">
+                <div class="followersRelease-modal-content">
+                  <span class="followersRelease-close">&times;</span>
+                  <h2>Followers</h2>
+                  <ul id="followerList">
+                    <!-- List of followers will be dynamically inserted here -->
+                  </ul>
+                </div>
+              </div>
+
               <div class="post-stats">
-                <h4 class="stats-numbers">{{ following_count }}</h4>
+                <h4
+                  class="stats-numbers"
+                  id="followingCount"
+                  style="cursor: pointer"
+                >
+                  {{ following_count }}
+                </h4>
                 <p class="stats-title">Following</p>
+              </div>
+            </div>
+
+            <!-- Following Modal -->
+            <div id="followingReleaseModal" class="followingRelease-modal">
+              <div class="followingRelease-modal-content">
+                <span class="followingRelease-close">&times;</span>
+                <h2>Following</h2>
+                <ul id="followingList">
+                  <!-- List of following will be dynamically inserted here -->
+                </ul>
               </div>
             </div>
 
@@ -53,16 +88,15 @@
                 Edit Profile
               </button>
               {% else %}
-              <form action="{% url 'follow_unfollow_user' username=profile_user.username %}" method="post">
+              <form
+                action="{% url 'follow_unfollow_user' username=profile_user.username %}"
+                method="post"
+              >
                 {% csrf_token %}
                 <button type="submit" class="user-profile-followBtn">
-                    {% if is_following %}
-                        Unfollow
-                    {% else %}
-                        Follow
-                    {% endif %}
+                  {% if is_following %} Unfollow {% else %} Follow {% endif %}
                 </button>
-            </form>
+              </form>
               {% endif %}
             </div>
 
@@ -182,6 +216,55 @@
     window.onclick = function (event) {
       if (event.target == modal) {
         modal.style.display = "none";
+      }
+    };
+
+    // Get the modals
+    var followersModal = document.getElementById("followersReleaseModal");
+    var followingModal = document.getElementById("followingReleaseModal");
+
+    // Get the <h4> elements that open the modals
+    var followerBtn = document.getElementById("followerCount");
+    var followingBtn = document.getElementById("followingCount");
+
+    // Get the <span> elements that close the modals
+    var followersClose = document.getElementsByClassName(
+      "followersRelease-close"
+    )[0];
+    var followingClose = document.getElementsByClassName(
+      "followingRelease-close"
+    )[0];
+
+    // When the user clicks on "Followers" <h4>, open the followers modal
+    followerBtn.onclick = function () {
+      followersModal.style.display = "block";
+      // Fetch and display the list of followers here
+      // Example: document.getElementById("followerList").innerHTML = "<li>Follower 1</li><li>Follower 2</li>";
+    };
+
+    // When the user clicks on "Following" <h4>, open the following modal
+    followingBtn.onclick = function () {
+      followingModal.style.display = "block";
+      // Fetch and display the list of following here
+      // Example: document.getElementById("followingList").innerHTML = "<li>Following 1</li><li>Following 2</li>";
+    };
+
+    // When the user clicks on <span> (x), close the followers modal
+    followersClose.onclick = function () {
+      followersModal.style.display = "none";
+    };
+
+    // When the user clicks on <span> (x), close the following modal
+    followingClose.onclick = function () {
+      followingModal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modals, close them
+    window.onclick = function (event) {
+      if (event.target == followersModal) {
+        followersModal.style.display = "none";
+      } else if (event.target == followingModal) {
+        followingModal.style.display = "none";
       }
     };
   </script>
