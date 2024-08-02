@@ -219,3 +219,44 @@ body{
     cursor: pointer;
     background-color: rgb(56, 56, 253);
 }
+
+.modal-content > h5{
+    font-size: 23px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    padding: 10px 0 20px 0;
+}
+
+.likes-profile-details{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+}
+
+
+
+.likes-profile-picture{
+    width: 40px; /* Set the desired width */
+    height: 40px; /* Set the desired height */
+    overflow: hidden; /* Hide overflow */
+    border-radius: 50%;
+    border: 3px solid rgb(82, 7, 74);
+}
+
+.likes-profile-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#likes-profile-username{
+    font-weight: 700;
+    font-style: oblique;
+    font-size: 16px;
+}
+
+#likes-profile-name{
+    font-size: 14px;
+    color: #888;
+}

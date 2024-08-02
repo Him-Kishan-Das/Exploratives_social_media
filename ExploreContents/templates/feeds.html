@@ -107,7 +107,7 @@
     <p>
       Liked by
       <a href="#" id="likes-link-{{ post.id }}"
-        >{{ post.total_likes }} peoples</a
+        >{{ post.total_likes }} people</a
       >
     </p>
   </div>
@@ -117,11 +117,18 @@
     <div class="modal-content">
       <span class="close" data-postid="{{ post.id }}">&times;</span>
       <h5>People who liked this post</h5>
-      <ul>
-        {% for like in post.liked_by %}
-                    <li>{{ like.user.username }}</li>
-                {% endfor %}
-      </ul>
+      <hr>
+      {% for like in post.liked_by %}
+        <div class="likes-profile-details">
+          <div class="likes-profile-picture">
+            <img src="{{ like.user.profile_picture.url }}" class="likes-profile-img">
+          </div>
+          <div style="margin: 0 14px;">
+            <p id="likes-profile-username">{{ like.user.username }}</p>
+            <p id="likes-profile-name">{{ like.user.name }}</p>
+          </div>
+        </div>
+      {% endfor %}
     </div>
   </div>
 
