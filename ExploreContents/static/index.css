@@ -186,8 +186,18 @@ body{
 }
 
 .user-comment-profile{
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid rgb(82, 7, 74);
+}
+
+.user-comment-profile > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .user-comment-text{

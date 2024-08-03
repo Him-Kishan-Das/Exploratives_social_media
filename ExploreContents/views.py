@@ -65,9 +65,11 @@ def home(request):
     for post in posts:
         post.total_likes = Likes.objects.filter(post=post).count()
         post.liked_by = Likes.objects.filter(post=post).select_related('user')
+        post.comments = Comments.objects.filter(post=post).select_related('user')
     
     context = {'posts': posts, 'liked_post_ids': liked_post_ids}
     return render(request, 'index.html', context)
+
 
 
 def my_logout_view(request):
