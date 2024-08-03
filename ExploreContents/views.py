@@ -88,6 +88,7 @@ def profile(request, username):
     is_following = Follow.objects.filter(follower=request.user, following=user).exists()
 
     post_count = user_posts.count()
+    liked_post_ids = Likes.objects.filter(user=request.user).values_list('post_id', flat=True)
     
     followers = Follow.objects.filter(following=user).select_related('follower')
     follower_count = followers.count()
@@ -99,6 +100,8 @@ def profile(request, username):
     
     for post in user_posts:
         post.comments = Comments.objects.filter(post=post).select_related('user')
+        post.liked_by = Likes.objects.filter(post=post).select_related('user')
+        post.comments = Comments.objects.filter(post=post).select_related('user')
     
     context = {
         'profile_user': user,
@@ -108,7 +111,8 @@ def profile(request, username):
         'follower_count': follower_count,
         'following_count': following_count,
         'follower_details': follower_details,
-        'following_details': following_details
+        'following_details': following_details,
+        'liked_post_ids': liked_post_ids,
     }
     
     return render(request, 'profile.html', context)

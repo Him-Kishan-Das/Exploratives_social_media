@@ -44,21 +44,34 @@
               </div>
 
               <!-- Followers Modal -->
-              <div id="followersReleaseModal-{{ profile_user.id }}" class="followersRelease-modal">
+              <div
+                id="followersReleaseModal-{{ profile_user.id }}"
+                class="followersRelease-modal"
+              >
                 <div class="followersRelease-modal-content">
                   <span class="followersRelease-close">&times;</span>
                   <h2>Followers</h2>
                   {% for follower in follower_details %}
-                      <!-- List of followers will be dynamically inserted here -->
-                      <div id="followerList-{{ profile_user.id }}" class="follower-following-profile-details">
-                        <div class="follower-following-profile-picture">
-                          <img src="{{ follower.profile_picture.url }}" class="follower-following-profile-img">
-                        </div>
-                        <div style="margin: 0 14px;">
-                          <p id="follower-following-profile-username">{{ follower.username }}</p>
-                          <p id="follower-following-profile-name">{{ follower.name }}</p>
-                        </div>
-                      </div>
+                  <!-- List of followers will be dynamically inserted here -->
+                  <div
+                    id="followerList-{{ profile_user.id }}"
+                    class="follower-following-profile-details"
+                  >
+                    <div class="follower-following-profile-picture">
+                      <img
+                        src="{{ follower.profile_picture.url }}"
+                        class="follower-following-profile-img"
+                      />
+                    </div>
+                    <div style="margin: 0 14px">
+                      <p id="follower-following-profile-username">
+                        {{ follower.username }}
+                      </p>
+                      <p id="follower-following-profile-name">
+                        {{ follower.name }}
+                      </p>
+                    </div>
+                  </div>
                   {% endfor %}
                 </div>
               </div>
@@ -81,17 +94,27 @@
                 <span class="followingRelease-close">&times;</span>
                 <h2>Following</h2>
                 {% for following in following_details %}
-                      <!-- List of followers will be dynamically inserted here -->
-                      <div id="followerList-{{ profile_user.id }}" class="follower-following-profile-details">
-                        <div class="follower-following-profile-picture">
-                          <img src="{{ following.profile_picture.url }}" class="follower-following-profile-img">
-                        </div>
-                        <div style="margin: 0 14px;">
-                          <p id="follower-following-profile-username">{{ following.username }}</p>
-                          <p id="follower-following-profile-name">{{ following.name }}</p>
-                        </div>
-                      </div>
-                  {% endfor %}
+                <!-- List of followers will be dynamically inserted here -->
+                <div
+                  id="followerList-{{ profile_user.id }}"
+                  class="follower-following-profile-details"
+                >
+                  <div class="follower-following-profile-picture">
+                    <img
+                      src="{{ following.profile_picture.url }}"
+                      class="follower-following-profile-img"
+                    />
+                  </div>
+                  <div style="margin: 0 14px">
+                    <p id="follower-following-profile-username">
+                      {{ following.username }}
+                    </p>
+                    <p id="follower-following-profile-name">
+                      {{ following.name }}
+                    </p>
+                  </div>
+                </div>
+                {% endfor %}
               </div>
             </div>
 
@@ -201,7 +224,6 @@
               />
             </div>
 
-
             <!-- Popup Structure -->
             <div id="popup-{{ userPost.id }}" class="popup">
               <div class="popup-content">
@@ -214,16 +236,18 @@
                     <div class="post-struct-content-right-profile">
                       <div class="post-struct-profile-info">
                         <div class="post-struct-profile-pic">
-                          <img src="/static/man.png" alt="">
+                          <img src="/static/man.png" alt="" />
                         </div>
                         <div class="post-struct-profile-namesInfo">
-                          <p class="post-struct-profile-username">him_kishan_das</p>
+                          <p class="post-struct-profile-username">
+                            him_kishan_das
+                          </p>
                           <p class="post-struct-profile-name">Him Kishan Das</p>
                         </div>
                       </div>
                     </div>
 
-                    <hr>
+                    <hr />
                     <div class="post-struct-content-right-comment">
                       {% for comment in userPost.comments %}
                       <div class="user-comment">
@@ -238,23 +262,74 @@
                           <h4 class="user-comment-username">
                             {{ comment.user.username }}
                           </h4>
-                          <p class="user-comment-text">{{ comment.user_comment }}</p>
+                          <p class="user-comment-text">
+                            {{ comment.user_comment }}
+                          </p>
                         </div>
                       </div>
                       {% endfor %}
                     </div>
-                    <hr>
+                    <hr />
+
+                    <div class="post-struct-content-right-buttons">
+                      <button class="post-struct-btn">
+                        <i class="fa-regular fa-heart" style="color: red"></i>
+                      </button>
+                      {% comment %}
+                      <button class="post-struct-btn">
+                        <i class="fa-regular fa-comment"></i>
+                      </button>
+                      {% endcomment %}
+                    </div>
+
+                    {% comment %} {% for post in user_posts %} {% endcomment %}
+                    <div class="post">
+                      {% comment %} <p>{{ post.content }}</p> {% endcomment %}
+                      <div class="likes-view">
+                        <p>
+                          Liked by
+                          <a href="#" id="likes-link-{{ userPost.id }}"
+                            >{{ userPost.total_likes }} people</a
+                          >
+                        </p>
+                      </div>
+
+                      <!-- Modal -->
+                      <div id="likesModal-{{ userPost.id }}" class="modal">
+                        <div class="modal-content">
+                          <span class="close" data-postid="{{ userPost.id }}"
+                            >&times;</span
+                          >
+                          <h5>People who liked this post</h5>
+                          <hr />
+                          {% for like in userPost.liked_by %}
+                          <div class="likes-profile-details">
+                            <div class="likes-profile-picture">
+                              <img
+                                src="{{ like.user.profile_picture.url }}"
+                                class="likes-profile-img"
+                              />
+                            </div>
+                            <div style="margin: 0 14px">
+                              <p id="likes-profile-username">
+                                {{ like.user.username }}
+                              </p>
+                              <p id="likes-profile-name">
+                                {{ like.user.name }}
+                              </p>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
 
                   </div>
-                  
                 </div>
               </div>
             </div>
             {% endfor %}
           </div>
-
-
-
         </div>
       </div>
     </div>
@@ -265,110 +340,141 @@
   ></script>
 
   <script>
-    {% if profile_user.username == request.user.username %}
-      var modal = document.getElementById("myModal");
+      {% if profile_user.username == request.user.username %}
+        var modal = document.getElementById("myModal");
 
-      var btn = document.getElementById("myBtn");
+        var btn = document.getElementById("myBtn");
 
-      var span = document.getElementsByClassName("close")[0];
+        var span = document.getElementsByClassName("close")[0];
 
-      btn.onclick = function () {
-        modal.style.display = "block";
-      };
+        btn.onclick = function () {
+          modal.style.display = "block";
+        };
 
-      span.onclick = function () {
-        modal.style.display = "none";
-      };
-
-      window.onclick = function (event) {
-        if (event.target == modal) {
+        span.onclick = function () {
           modal.style.display = "none";
-        }
-      };
-    {% endif %}
-    
+        };
 
-    document.addEventListener('DOMContentLoaded', function() {
-      var followersModal = document.getElementById("followersReleaseModal-{{ profile_user.id }}");
-      var followingModal = document.getElementById("followingReleaseModal");
-  
-      var followerBtn = document.getElementById("followerCount");
-      var followingBtn = document.getElementById("followingCount");
-  
-      var followersClose = document.getElementsByClassName("followersRelease-close")[0];
-      var followingClose = document.getElementsByClassName("followingRelease-close")[0];
-  
-      console.log(followersModal, followingModal, followerBtn, followingBtn, followersClose, followingClose);
-  
-      if (followerBtn) {
-          followerBtn.onclick = function() {
-              followersModal.style.display = "block";
-          };
-      } else {
-          console.error("Follower button not found");
-      }
-  
-      if (followingBtn) {
-          followingBtn.onclick = function() {
-              followingModal.style.display = "block";
-          };
-      } else {
-          console.error("Following button not found");
-      }
-  
-      if (followersClose) {
-          followersClose.onclick = function() {
-              followersModal.style.display = "none";
-          };
-      } else {
-          console.error("Followers close button not found");
-      }
-  
-      if (followingClose) {
-          followingClose.onclick = function() {
-              followingModal.style.display = "none";
-          };
-      } else {
-          console.error("Following close button not found");
-      }
-  
-      window.onclick = function(event) {
-          if (event.target == followersModal) {
-              followersModal.style.display = "none";
-          } else if (event.target == followingModal) {
-              followingModal.style.display = "none";
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
           }
-      };
-  });
+        };
+      {% endif %}
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const postStructs = document.querySelectorAll('.post-struct');
-    const popups = document.querySelectorAll('.popup');
-    const closeButtons = document.querySelectorAll('.close');
-  
-    postStructs.forEach(postStruct => {
-      postStruct.addEventListener('click', function () {
-        const id = this.id.split('-')[2];
-        document.getElementById(`popup-${id}`).style.display = 'block';
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var followersModal = document.getElementById("followersReleaseModal-{{ profile_user.id }}");
+        var followingModal = document.getElementById("followingReleaseModal");
+
+        var followerBtn = document.getElementById("followerCount");
+        var followingBtn = document.getElementById("followingCount");
+
+        var followersClose = document.getElementsByClassName("followersRelease-close")[0];
+        var followingClose = document.getElementsByClassName("followingRelease-close")[0];
+
+        console.log(followersModal, followingModal, followerBtn, followingBtn, followersClose, followingClose);
+
+        if (followerBtn) {
+            followerBtn.onclick = function() {
+                followersModal.style.display = "block";
+            };
+        } else {
+            console.error("Follower button not found");
+        }
+
+        if (followingBtn) {
+            followingBtn.onclick = function() {
+                followingModal.style.display = "block";
+            };
+        } else {
+            console.error("Following button not found");
+        }
+
+        if (followersClose) {
+            followersClose.onclick = function() {
+                followersModal.style.display = "none";
+            };
+        } else {
+            console.error("Followers close button not found");
+        }
+
+        if (followingClose) {
+            followingClose.onclick = function() {
+                followingModal.style.display = "none";
+            };
+        } else {
+            console.error("Following close button not found");
+        }
+
+        window.onclick = function(event) {
+            if (event.target == followersModal) {
+                followersModal.style.display = "none";
+            } else if (event.target == followingModal) {
+                followingModal.style.display = "none";
+            }
+        };
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const postStructs = document.querySelectorAll('.post-struct');
+      const popups = document.querySelectorAll('.popup');
+      const closeButtons = document.querySelectorAll('.close');
+
+      postStructs.forEach(postStruct => {
+        postStruct.addEventListener('click', function () {
+          const id = this.id.split('-')[2];
+          document.getElementById(`popup-${id}`).style.display = 'block';
+        });
+      });
+
+      closeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const id = this.getAttribute('data-id');
+          document.getElementById(`popup-${id}`).style.display = 'none';
+        });
+      });
+
+      window.addEventListener('click', function (event) {
+        popups.forEach(popup => {
+          if (event.target === popup) {
+            popup.style.display = 'none';
+          }
+        });
       });
     });
-  
-    closeButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const id = this.getAttribute('data-id');
-        document.getElementById(`popup-${id}`).style.display = 'none';
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Get all the links that open the modal
+      const likeLinks = document.querySelectorAll('[id^="likes-link-"]');
+
+      likeLinks.forEach(link => {
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+          const postId = this.id.split("-")[2];
+          const modal = document.getElementById(`likesModal-${postId}`);
+          modal.style.display = "block";
+        });
       });
-    });
-  
-    window.addEventListener('click', function (event) {
-      popups.forEach(popup => {
-        if (event.target === popup) {
-          popup.style.display = 'none';
+
+      // Get all the elements that close the modal
+      const closeButtons = document.querySelectorAll(".close");
+
+      closeButtons.forEach(button => {
+        button.addEventListener("click", function () {
+          const postId = this.getAttribute("data-postid");
+          const modal = document.getElementById(`likesModal-${postId}`);
+          modal.style.display = "none";
+        });
+      });
+
+      // Close the modal if the user clicks outside of it
+      window.addEventListener("click", function (event) {
+        if (event.target.classList.contains("modal")) {
+          event.target.style.display = "none";
         }
       });
     });
-  });
-  
-  
   </script>
 </html>
