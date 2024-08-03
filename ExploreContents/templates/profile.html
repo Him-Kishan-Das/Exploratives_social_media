@@ -193,15 +193,28 @@
 
           <div class="gallery-struct">
             {% for userPost in user_posts reversed %}
-            <div class="post-struct">
+            <div class="post-struct" id="post-struct-{{ userPost.id }}">
               <img
                 class="post-pic"
                 src="{{ userPost.post_image.url }}"
                 alt=""
               />
             </div>
+
+
+            <!-- Popup Structure -->
+            <div id="popup-{{ userPost.id }}" class="popup">
+              <div class="popup-content">
+                <span class="close" data-id="{{ userPost.id }}">&times;</span>
+                <img src="{{ userPost.post_image.url }}" alt="" />
+                <!-- Add more content here if needed -->
+              </div>
+            </div>
             {% endfor %}
           </div>
+
+
+
         </div>
       </div>
     </div>
@@ -215,23 +228,18 @@
     {% if profile_user.username == request.user.username %}
       var modal = document.getElementById("myModal");
 
-      // Get the button that opens the modal
       var btn = document.getElementById("myBtn");
 
-      // Get the <span> element that closes the modal
       var span = document.getElementsByClassName("close")[0];
 
-      // When the user clicks on the button, open the modal
       btn.onclick = function () {
         modal.style.display = "block";
       };
 
-      // When the user clicks on <span> (x), close the modal
       span.onclick = function () {
         modal.style.display = "none";
       };
 
-      // When the user clicks anywhere outside of the modal, close it
       window.onclick = function (event) {
         if (event.target == modal) {
           modal.style.display = "none";
@@ -292,6 +300,35 @@
           }
       };
   });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const postStructs = document.querySelectorAll('.post-struct');
+    const popups = document.querySelectorAll('.popup');
+    const closeButtons = document.querySelectorAll('.close');
+  
+    postStructs.forEach(postStruct => {
+      postStruct.addEventListener('click', function () {
+        const id = this.id.split('-')[2];
+        document.getElementById(`popup-${id}`).style.display = 'block';
+      });
+    });
+  
+    closeButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const id = this.getAttribute('data-id');
+        document.getElementById(`popup-${id}`).style.display = 'none';
+      });
+    });
+  
+    window.addEventListener('click', function (event) {
+      popups.forEach(popup => {
+        if (event.target === popup) {
+          popup.style.display = 'none';
+        }
+      });
+    });
+  });
+  
   
   </script>
 </html>
