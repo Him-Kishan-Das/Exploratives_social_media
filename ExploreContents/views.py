@@ -97,7 +97,6 @@ def profile(request, username):
     following_count = following.count()
     following_details = [follow.following for follow in following]
     
-    # Fetch comments for each post
     for post in user_posts:
         post.comments = Comments.objects.filter(post=post).select_related('user')
     

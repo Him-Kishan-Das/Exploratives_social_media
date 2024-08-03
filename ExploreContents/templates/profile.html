@@ -224,7 +224,8 @@
                     </div>
 
                     <hr>
-                    {% for comment in userPost.comments %}
+                    <div class="post-struct-content-right-comment">
+                      {% for comment in userPost.comments %}
                       <div class="user-comment">
                         <div class="user-comment-profile">
                           <img
@@ -241,9 +242,9 @@
                         </div>
                       </div>
                       {% endfor %}
+                    </div>
+                    <hr>
 
-                      <hr>
-                      
                   </div>
                   
                 </div>

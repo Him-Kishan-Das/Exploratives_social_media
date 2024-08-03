@@ -351,6 +351,7 @@
 .post-struct-contents{
     display: flex;
     flex-direction: row;
+    height: 620px;
 }
 
 .post-struct-content-left{
@@ -409,6 +410,12 @@
     font-size: 14px;
 }
 
+
+.post-struct-content-right-comment{
+    height: 70%;
+    /* max-height: 300px; Adjust the height as needed */
+    overflow-y: auto;
+}
 
 .user-comment{
     display: flex;
