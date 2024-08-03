@@ -206,7 +206,27 @@
             <div id="popup-{{ userPost.id }}" class="popup">
               <div class="popup-content">
                 <span class="close" data-id="{{ userPost.id }}">&times;</span>
-                <img src="{{ userPost.post_image.url }}" alt="" />
+                <div class="post-struct-contents">
+                  <div class="post-struct-content-left">
+                    <img src="{{ userPost.post_image.url }}" alt="" />
+                  </div>
+                  <div class="post-struct-content-right">
+                    <div class="post-struct-content-right-profile">
+                      <div class="post-struct-profile-info">
+                        <div class="post-struct-profile-pic">
+                          <img src="/static/man.png" alt="">
+                        </div>
+                        <div class="post-struct-profile-namesInfo">
+                          <p class="post-struct-profile-username">him_kishan_das</p>
+                          <p class="post-struct-profile-name">Him Kishan Das</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr>
+                  </div>
+                  
+                </div>
                 <!-- Add more content here if needed -->
               </div>
             </div>
