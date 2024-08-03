@@ -97,6 +97,10 @@ def profile(request, username):
     following_count = following.count()
     following_details = [follow.following for follow in following]
     
+    # Fetch comments for each post
+    for post in user_posts:
+        post.comments = Comments.objects.filter(post=post).select_related('user')
+    
     context = {
         'profile_user': user,
         'user_posts': user_posts,
@@ -109,6 +113,7 @@ def profile(request, username):
     }
     
     return render(request, 'profile.html', context)
+
 
 def follow_unfollow_user(request, username):
     user_to_follow = get_object_or_404(users, username=username)
