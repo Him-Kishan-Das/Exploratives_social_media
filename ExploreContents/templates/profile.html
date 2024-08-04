@@ -289,7 +289,7 @@
                         <p>
                           Liked by
                           <a href="#" id="likes-link-{{ userPost.id }}"
-                            >{{ userPost.total_likes }} people</a
+                             style="font-weight: 600">{{ userPost.total_likes }} people</a
                           >
                         </p>
                       </div>
@@ -300,8 +300,7 @@
                           <span class="close" data-postid="{{ userPost.id }}"
                             >&times;</span
                           >
-                          <h5>People who liked this post</h5>
-                          <hr />
+                          <h5>Likes</h5>
                           {% for like in userPost.liked_by %}
                           <div class="likes-profile-details">
                             <div class="likes-profile-picture">

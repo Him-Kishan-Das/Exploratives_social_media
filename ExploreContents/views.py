@@ -102,6 +102,7 @@ def profile(request, username):
         post.comments = Comments.objects.filter(post=post).select_related('user')
         post.liked_by = Likes.objects.filter(post=post).select_related('user')
         post.comments = Comments.objects.filter(post=post).select_related('user')
+        post.total_likes = Likes.objects.filter(post=post).count()
     
     context = {
         'profile_user': user,
