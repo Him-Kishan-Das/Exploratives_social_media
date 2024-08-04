@@ -24,39 +24,67 @@ A Django-based social media platform where users can create posts, like and comm
 - **SQLite** (database)
 - **FontAwesome** (icons)
 
-## Installation
+Sure! Here are the detailed instructions for cloning and running the **Exploratives** project:
+
+## Cloning and Running the Project
+
+### Prerequisites
+
+Make sure you have the following installed on your system:
+- Python 3.x
+- Git
+
+### Steps
 
 1. **Clone the repository**:
+    Open your terminal or command prompt and run the following command:
     ```bash
     git clone https://github.com/yourusername/exploratives.git
     cd exploratives
     ```
 
 2. **Create a virtual environment**:
+    Create a virtual environment to manage dependencies:
     ```bash
     python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
 
-3. **Install dependencies**:
+3. **Activate the virtual environment**:
+    - On Windows:
+      ```bash
+      venv\Scripts\activate
+      ```
+    - On macOS and Linux:
+      ```bash
+      source venv/bin/activate
+      ```
+
+4. **Install dependencies**:
+    Install the required dependencies using `pip`:
     ```bash
     pip install -r requirements.txt
     ```
 
-4. **Apply migrations**:
+5. **Apply migrations**:
+    Apply the database migrations to set up the database schema:
     ```bash
     python manage.py migrate
     ```
 
-5. **Create a superuser**:
+6. **Create a superuser**:
+    Create a superuser account to access the Django admin interface:
     ```bash
     python manage.py createsuperuser
     ```
 
-6. **Run the development server**:
+7. **Run the development server**:
+    Start the Django development server:
     ```bash
     python manage.py runserver
     ```
+
+8. **Access the application**:
+    Open your web browser and navigate to `http://127.0.0.1:8000/` to access the application.
 
 ## Usage
 
