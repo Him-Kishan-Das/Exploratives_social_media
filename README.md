@@ -24,7 +24,6 @@ A Django-based social media platform where users can create posts, like and comm
 - **SQLite** (database)
 - **FontAwesome** (icons)
 
-Sure! Here are the detailed instructions for cloning and running the **Exploratives** project:
 
 ## Cloning and Running the Project
 
