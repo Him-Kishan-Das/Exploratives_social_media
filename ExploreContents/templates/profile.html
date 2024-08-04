@@ -236,13 +236,18 @@
                     <div class="post-struct-content-right-profile">
                       <div class="post-struct-profile-info">
                         <div class="post-struct-profile-pic">
-                          <img src="{{ userPost.user.profile_picture.url }}" alt="" />
+                          <img
+                            src="{{ userPost.user.profile_picture.url }}"
+                            alt=""
+                          />
                         </div>
                         <div class="post-struct-profile-namesInfo">
                           <p class="post-struct-profile-username">
                             {{ userPost.user.username }}
                           </p>
-                          <p class="post-struct-profile-name">{{ userPost.user.name }}</p>
+                          <p class="post-struct-profile-name">
+                            {{ userPost.user.name }}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -283,50 +288,58 @@
                     </div>
 
                     {% comment %} {% for post in user_posts %} {% endcomment %}
-                    <div class="post">
-                      {% comment %} <p>{{ post.content }}</p> {% endcomment %}
-                      <div class="likes-view">
-                        <p>
-                          Liked by
-                          <a href="#" id="likes-link-{{ userPost.id }}"
-                             style="font-weight: 600">{{ userPost.total_likes }} people</a
-                          >
-                        </p>
-                      </div>
+                    {% comment %}
+                    <p>{{ post.content }}</p>
+                    {% endcomment %}
+                    <div class="likes-view">
+                      <p>
+                        Liked by
+                        <a
+                          href="#"
+                          id="likes-link-{{ userPost.id }}"
+                          style="font-weight: 600"
+                          >{{ userPost.total_likes }} people</a
+                        >
+                      </p>
+                    </div>
 
-                      <!-- Modal -->
-                      <div id="likesModal-{{ userPost.id }}" class="modal">
-                        <div class="modal-content">
-                          <span class="close" data-postid="{{ userPost.id }}"
-                            >&times;</span
-                          >
-                          <h5>Likes</h5>
-                          {% for like in userPost.liked_by %}
-                          <div class="likes-profile-details">
-                            <div class="likes-profile-picture">
-                              <img
-                                src="{{ like.user.profile_picture.url }}"
-                                class="likes-profile-img"
-                              />
-                            </div>
-                            <div style="margin: 0 14px">
-                              <p id="likes-profile-username">
-                                {{ like.user.username }}
-                              </p>
-                              <p id="likes-profile-name">
-                                {{ like.user.name }}
-                              </p>
-                            </div>
+                    <!-- Modal -->
+                    <div id="likesModal-{{ userPost.id }}" class="modal">
+                      <div class="modal-content">
+                        <span class="close" data-postid="{{ userPost.id }}"
+                          >&times;</span
+                        >
+                        <h5>Likes</h5>
+                        {% for like in userPost.liked_by %}
+                        <div class="likes-profile-details">
+                          <div class="likes-profile-picture">
+                            <img
+                              src="{{ like.user.profile_picture.url }}"
+                              class="likes-profile-img"
+                            />
                           </div>
-                          {% endfor %}
+                          <div style="margin: 0 14px">
+                            <p id="likes-profile-username">
+                              {{ like.user.username }}
+                            </p>
+                            <p id="likes-profile-name">{{ like.user.name }}</p>
+                          </div>
                         </div>
+                        {% endfor %}
                       </div>
                     </div>
 
 
-
-
-
+                    <form action="/comment-btn/" method="post" class="newComment">
+                      {% csrf_token %}
+                      <input
+                        type="hidden"
+                        name="newComment_postid"
+                        value="{{ post.id }}"
+                      />
+                      <input type="text" name="newComment" class="newComment-input" />
+                      <button type="submit" class="newCommentPostBtn">Post</button>
+                    </form>
 
                   </div>
                 </div>

@@ -493,3 +493,31 @@
     font-size: 14px;
     color: #888;
 }
+
+.newComment{
+    align-items: center;
+    margin: 2px 5px;
+    display: flex;
+}
+
+.newComment-input{
+    font-size: 14px;
+    width: 80%;
+    padding: 7px;
+    outline: none;
+}
+
+.newCommentPostBtn{
+    font-size: 14px;
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 8.8px;
+    border-radius: 0 14% 14% 0;
+    width: 16%;
+}
+
+.newCommentPostBtn:hover{
+    cursor: pointer;
+    background-color: rgb(56, 56, 253);
+}

@@ -161,49 +161,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    {% comment %} function loadComments(postId) {
-      $.ajax({
-        url: `/load-comments/${postId}/`,
-        type: "GET",
-        success: function (response) {
-          let commentsContainer = document.getElementById(
-            `comments-container-${postId}`
-          );
-          commentsContainer.innerHTML = "";
-          response.comments.forEach((comment) => {
-            let div = document.createElement("div");
-            div.classList.add("user-comment");
-            div.innerHTML = `
-                      <img src="/static/man.png" alt="" class="user-comment-profile">
-                      <div style="padding-left: 5px">
-                          <h4 class="user-comment-username">${comment.username}</h4>
-                          <p class="user-comment-text">${comment.user_comment}</p>
-                      </div>
-                  `;
-            commentsContainer.appendChild(div);
-          });
-
-          // Add the form for new comments
-          let formDiv = document.createElement("div");
-          formDiv.innerHTML = `
-                  <hr>
-                  <form action="/comment-btn/" method="post" class="newComment">
-                      {% csrf_token %}
-                      <input type="hidden" name="newComment_postid" value="${postId}" />
-                      <input type="text" name="newComment" class="newComment-input"/>
-                      <button type="submit" class="newCommentPostBtn">Post</button>
-                  </form>
-              `;
-          commentsContainer.appendChild(formDiv);
-
-          document.getElementById(`uniqueModal${postId}`).style.display = "block";
-        },
-        error: function (error) {
-          console.log("Error:", error);
-        },
-      });
-    } {% endcomment %}
-
     // Function to open the modal
   function openModal(postId) {
     document.getElementById(`uniqueModal${postId}`).style.display = "block";
