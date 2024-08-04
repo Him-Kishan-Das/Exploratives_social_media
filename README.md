@@ -69,6 +69,11 @@ A Django-based social media platform where users can create posts, like and comm
 7. **Follow/Unfollow Users**: Click the follow/unfollow button on a user's profile.
 8. **View Followers/Following**: Navigate to a user's profile to see their followers and following lists.
 
+## Contributors
+We’d like to thank the following contributors for their valuable contributions:
+
+1. Abinash Bordoloi - Helped in building the login system and solving initial issues
+
 ## Contributing
 
 1. **Fork the repository**.
