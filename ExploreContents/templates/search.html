@@ -23,7 +23,7 @@
                 <h2 class="search-profile-username">{{ userX.username }}</h2>
                 <p class="search-profile-name">{{ userX.name }}</p>
             </div>
-            <form action="{% url 'follow_unfollow_user' username=userX.username %}" method="post">
+            {% comment %} <form action="{% url 'follow_unfollow_user' username=userX.username %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="profile-followBtn">
                     {% if is_following.userX.id %}
@@ -32,7 +32,7 @@
                         Follow
                     {% endif %}
                 </button>
-            </form>
+            </form> {% endcomment %}
         </a>
 
         <hr />

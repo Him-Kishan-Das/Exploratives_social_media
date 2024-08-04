@@ -1,66 +1,75 @@
 {% load static %}
 
 <div class="right-menuContainer">
-    <div class="profile">
+  <div class="profile">
+    <div class="right-profile">
+      <img
+        src="{{ request.user.profile_picture.url }}"
+        class="right-sidebar-profile-img"
+        alt="logo"
+      />
+    </div>
+    <div class="sub-profile">
+      <h4 class="profile-username">{{ request.user.username }}</h4>
+      <p class="profile-name">{{ request.user.name }}</p>
+    </div>
+  </div>
+
+  <hr style="margin: 18px 0">
+
+  {% comment %} <div class="suggestions">
+    <h4 class="suggest-heading">Suggested for you</h4>
+    <div class="suggested-profiles">
+      <div class="profile">
         <div class="right-profile">
-            <img src="{{ request.user.profile_picture.url }}" class="right-sidebar-profile-img" alt="logo">
+          <img src="{% static "man.png" %}" class="right-sidebar-profile-img"
+          alt="logo">
         </div>
         <div class="sub-profile">
-            <h4 class="profile-username">{{ request.user.username }}</h4>
-            <p class="profile-name">{{ request.user.name }}</p>
+          <h4 class="profile-username">him_kishan_das01</h4>
+          <p class="profile-name">Him Kishan Das</p>
         </div>
+      </div>
+      <button id="follow-btn">Follow</button>
     </div>
-
-    <div class="suggestions">
-        <h4 class="suggest-heading">Suggested for you</h4>
-        <div class="suggested-profiles">
-            <div class="profile">
-                <div class="right-profile">
-                    <img src="{% static "man.png" %}" class="right-sidebar-profile-img" alt="logo">
-                </div>
-                <div class="sub-profile">
-                    <h4 class="profile-username">him_kishan_das01</h4>
-                    <p class="profile-name">Him Kishan Das</p>
-                </div>
-            </div>
-            <button id="follow-btn">Follow</button>
+    <div class="suggested-profiles">
+      <div class="profile">
+        <div class="right-profile">
+          <img src="{% static "man.png" %}" class="right-sidebar-profile-img"
+          alt="logo">
         </div>
-        <div class="suggested-profiles">
-            <div class="profile">
-                <div class="right-profile">
-                    <img src="{% static "man.png" %}" class="right-sidebar-profile-img" alt="logo">
-                </div>
-                <div class="sub-profile">
-                    <h4 class="profile-username">him_kishan_das01</h4>
-                    <p class="profile-name">Him Kishan Das</p>
-                </div>
-            </div>
-            <button id="follow-btn">Follow</button>
+        <div class="sub-profile">
+          <h4 class="profile-username">him_kishan_das01</h4>
+          <p class="profile-name">Him Kishan Das</p>
         </div>
-        <div class="suggested-profiles">
-            <div class="profile">
-                <div class="right-profile">
-                    <img src="{% static "man.png" %}" class="right-sidebar-profile-img" alt="logo">
-                </div>
-                <div class="sub-profile">
-                    <h4 class="profile-username">him_kishan_das01</h4>
-                    <p class="profile-name">Him Kishan Das</p>
-                </div>
-            </div>
-            <button id="follow-btn">Follow</button>
-        </div>
-        <div class="suggested-profiles">
-            <div class="profile">
-                <div class="right-profile">
-                    <img src="{% static "man.png" %}" class="right-sidebar-profile-img" alt="logo">
-                </div>
-                <div class="sub-profile">
-                    <h4 class="profile-username">him_kishan_das01</h4>
-                    <p class="profile-name">Him Kishan Das</p>
-                </div>
-            </div>
-            <button id="follow-btn">Follow</button>
-        </div>
-        
+      </div>
+      <button id="follow-btn">Follow</button>
     </div>
+    <div class="suggested-profiles">
+      <div class="profile">
+        <div class="right-profile">
+          <img src="{% static "man.png" %}" class="right-sidebar-profile-img"
+          alt="logo">
+        </div>
+        <div class="sub-profile">
+          <h4 class="profile-username">him_kishan_das01</h4>
+          <p class="profile-name">Him Kishan Das</p>
+        </div>
+      </div>
+      <button id="follow-btn">Follow</button>
+    </div>
+    <div class="suggested-profiles">
+      <div class="profile">
+        <div class="right-profile">
+          <img src="{% static "man.png" %}" class="right-sidebar-profile-img"
+          alt="logo">
+        </div>
+        <div class="sub-profile">
+          <h4 class="profile-username">him_kishan_das01</h4>
+          <p class="profile-name">Him Kishan Das</p>
+        </div>
+      </div>
+      <button id="follow-btn">Follow</button>
+    </div>
+  </div> {% endcomment %}
 </div>
