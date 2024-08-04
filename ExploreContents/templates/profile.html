@@ -254,6 +254,25 @@
 
                     <hr />
                     <div class="post-struct-content-right-comment">
+
+                      <div class="user-comment">
+                        <div class="user-comment-profile">
+                          <img
+                            src="{{ userPost.user.profile_picture.url }}"
+                            alt=""
+                            class="user-comment-profile"
+                          />
+                        </div>
+                        <div style="padding-left: 13px">
+                          <h4 class="user-comment-username">
+                            {{ userPost.user.username }}
+                          </h4>
+                          <p class="user-comment-text">
+                            {{ userPost.post_caption }}
+                          </p>
+                        </div>
+                      </div>
+
                       {% for comment in userPost.comments %}
                       <div class="user-comment">
                         <div class="user-comment-profile">
