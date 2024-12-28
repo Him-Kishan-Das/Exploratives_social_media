@@ -124,11 +124,9 @@ def follow_unfollow_user(request, username):
     follow, created = Follow.objects.get_or_create(follower=request.user, following=user_to_follow)
     
     if created:
-        # print(f"{request.user.username} followed {user_to_follow.username}")  # Debugging
         pass
     else:
         follow.delete()
-        # print(f"{request.user.username} unfollowed {user_to_follow.username}")  # Debugging
     
     return redirect('profile', username=user_to_follow.username)
 
@@ -141,8 +139,6 @@ def EditProfile(request):
         profile_username = request.POST.get('profile-username')
         profile_name = request.POST.get('profile-name')
 
-
-        # Retrieve the user's profile
         profile = users.objects.get(id=user_id)
 
         if profile_username:
@@ -156,15 +152,17 @@ def EditProfile(request):
 
         if profileImage:
             profilePic = Image.open(profileImage)
+            if profilePic.mode == 'RGBA':
+                profilePic = profilePic.convert('RGB')
             profilePic.save(f'static/profilePic/{user_id}.jpg')
-            profile.profile_picture = f'static/profilePic/{user_id}.jpg'  # Save the path to the profile picture
+            profile.profile_picture = f'static/profilePic/{user_id}.jpg' 
 
-        # Save the updated profile
         profile.save()
 
         return HttpResponseRedirect(reverse('profile', args=[request.user.username]))
     
     return render(request, "edit_profile.html")
+
 
 def newPost(request):
     msg = None
@@ -187,21 +185,14 @@ def newPost(request):
 
 def like(request):
     if request.method == 'POST':
-        # Extract relevant data (e.g., user ID, post ID)
         user_id = request.user.id
         post_id = request.POST.get('post_id')
 
-        # Check if a record with the same user_id and post_id exists
         existing_like = Likes.objects.filter(user_id=user_id, post_id=post_id).first()
 
         if existing_like:
-            # Record already exists, handle accordingly (e.g., show an error message)
-            # You can redirect to an error page or display a message to the user
-            # indicating that they've already liked this post.
-            # For now, I'll just print a message:
             print("User has already liked this post.")
         else:
-            # Save the like
             likes = Likes(post_id=post_id, user_id=user_id)
             likes.save()
         return HttpResponseRedirect('/home/', {'existing_like': existing_like})
