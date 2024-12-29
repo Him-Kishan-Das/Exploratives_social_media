@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
 from PIL import Image
+from django.http import HttpResponseForbidden 
+from .models import SavedPost
 
 def signup(request):
     msg = None
@@ -117,6 +119,14 @@ def profile(request, username):
     }
     
     return render(request, 'profile.html', context)
+
+def saved(request, username): 
+    # Ensure the logged-in user is the one accessing the saved posts 
+    if request.user.username != username: 
+        return HttpResponseForbidden("You are not allowed to view this page.") 
+    # Fetch the saved posts of the logged-in user 
+    saved_posts = SavedPost.objects.filter(user=request.user) 
+    return render(request, 'savedPage.html', {'saved_posts': saved_posts})
 
 
 def follow_unfollow_user(request, username):
@@ -230,6 +240,8 @@ def search(request):
 
         context = {'keyword': keyword, 'users': userx}
         return render(request, 'search.html', context)
+    
+
 
 def usernames(request):
     usr = users.objects.all()

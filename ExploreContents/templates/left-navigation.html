@@ -10,13 +10,19 @@
             <p class="menu-items-elements">Home</p>
         </div>
     </a>
-    <a alt="working on it">
+    <a href="/saved">
+        <div id="home" class="menu-items">
+            <i class="fa-solid fa-regular fa-bookmark menu-items-elements"></i>
+            <p class="menu-items-elements">Saved</p>
+        </div>
+    </a>
+    {% comment %} <a alt="working on it">
         <div id="add-post" class="menu-items" id="myBtn">
             <i class="fa-regular fa-pen-to-square menu-items-elements"></i>
             <p class="menu-items-elements">Add Post</p>
             <p style="color: red; font-size: 10px">working on it</p>
         </div>
-    </a>
+    </a> {% endcomment %}
     <a href="{% url 'profile' request.user.username %}">
         <div id="profile" class="menu-items">
             <i class="fa-regular fa-user menu-items-elements"></i>
@@ -24,4 +30,42 @@
         </div>
     </a>
 
+    
 </div>
+
+
+<script>
+    function previewImage(event) {
+      const fileInput = event.target;
+      const imgPreview = document.getElementById("img-preview");
+  
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imgPreview.src = e.target.result;
+          imgPreview.style.display = "block";
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    }
+  
+    var modal = document.getElementById("myModal");
+  
+    var btn = document.getElementById("myBtn");
+  
+    var span = document.getElementsByClassName("close")[0];
+  
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
+  
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+  
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>

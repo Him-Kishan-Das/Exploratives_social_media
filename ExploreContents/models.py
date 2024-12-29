@@ -72,3 +72,11 @@ class Follow(models.Model):
     
     def __str__(self):
         return f"{self.follower.username} follows{self.following.username}"
+    
+class SavedPost(models.Model): 
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE) 
+    post = models.ForeignKey(Post, on_delete=models.CASCADE) 
+    saved_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self): 
+        return f"{self.user.username} saved{self.post.post_caption}"
