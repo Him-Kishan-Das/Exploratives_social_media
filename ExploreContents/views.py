@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.db.models import Q
 from PIL import Image
 from django.http import HttpResponseForbidden 
+from django.core.paginator import Paginator
 from .models import SavedPost
 
 def signup(request):
@@ -146,13 +147,36 @@ def save_post(request, post_id):
     return redirect('home')
 
 
-def saved(request, username): 
-    # Ensure the logged-in user is the one accessing the saved posts 
-    if request.user.username != username: 
-        return HttpResponseForbidden("You are not allowed to view this page.") 
-    # Fetch the saved posts of the logged-in user 
-    saved_posts = SavedPost.objects.filter(user=request.user) 
-    return render(request, 'savedPage.html', {'saved_posts': saved_posts})
+
+def saved(request, username):
+    """
+    Display the saved posts for a user.
+    Only the logged-in user can view their own saved posts.
+    """
+    CustomUser = get_user_model()
+
+    # Ensure the username exists and fetch the user
+    user = get_object_or_404(CustomUser, username=username)
+
+    # Restrict access to the logged-in user's saved posts only
+    if request.user != user:
+        return HttpResponseForbidden("You are not allowed to view this page.")
+
+    # Fetch saved posts for the logged-in user, order by most recently saved
+    saved_posts = SavedPost.objects.filter(user=user).select_related('post').order_by('-saved_at')
+
+    # Implement pagination (10 posts per page)
+    paginator = Paginator(saved_posts, 10)
+    page_number = request.GET.get('page')
+    saved_posts_page = paginator.get_page(page_number)
+
+    # Prepare context for rendering
+    context = {
+        'saved_posts': saved_posts_page,
+        'profile_user': user,
+    }
+
+    return render(request, 'savedPage.html', context)
 
 
 def follow_unfollow_user(request, username):

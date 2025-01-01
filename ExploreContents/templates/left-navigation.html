@@ -10,7 +10,7 @@
             <p class="menu-items-elements">Home</p>
         </div>
     </a>
-    <a href="/saved">
+    <a href="{% url 'saved' request.user.username %}">
         <div id="home" class="menu-items">
             <i class="fa-solid fa-regular fa-bookmark menu-items-elements"></i>
             <p class="menu-items-elements">Saved</p>
