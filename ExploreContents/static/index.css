@@ -116,9 +116,13 @@ body{
     cursor: pointer;
 }
 
-.save{
+.save {
     padding-right: 12px;
-}
+    background-color: transparent;
+    border: none;
+    outline: none; /* Removes the focus outline */
+    cursor: pointer; /* Makes the button look clickable */
+  }
 
 .likes-view{
     font-size: 15px;

@@ -73,7 +73,6 @@ def home(request):
     return render(request, 'index.html', context)
 
 
-
 def my_logout_view(request):
     logout(request)
     return redirect('login')
@@ -119,6 +118,33 @@ def profile(request, username):
     }
     
     return render(request, 'profile.html', context)
+
+def save_post(request, post_id):
+    """
+    Handles saving and unsaving a post for a logged-in user without JSON response.
+    """
+    if request.method == "POST":
+        post = get_object_or_404(Post, id=post_id)
+        user = request.user
+
+        # Check if the post is already saved
+        saved_post, created = SavedPost.objects.get_or_create(user=user, post=post)
+
+        if created:
+            # Post was newly saved
+            messages.success(request, "Post saved successfully.")
+        else:
+            # Post already saved, so unsave it
+            saved_post.delete()
+            messages.success(request, "Post unsaved successfully.")
+
+        # Redirect to the same page or any other page
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+    # If not POST, redirect to home or any default page
+    messages.error(request, "Invalid request method.")
+    return redirect('home')
+
 
 def saved(request, username): 
     # Ensure the logged-in user is the one accessing the saved posts 

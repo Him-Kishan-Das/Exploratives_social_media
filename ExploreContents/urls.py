@@ -10,6 +10,7 @@ urlpatterns = [
     path('submit_post/', views.newPost),
     path('like-btn/', views.like),
     path('comment-btn/', views.comment),
+    path('save-post/<int:post_id>/', views.save_post, name='save_post'),
     path('load-comments/<int:post_id>/', views.load_comments, name='load_comments'),
     path('edit-profile/', views.EditProfile),
     path('search/', views.search),

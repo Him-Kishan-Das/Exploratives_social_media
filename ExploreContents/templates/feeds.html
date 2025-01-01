@@ -106,9 +106,12 @@
 
       {% comment %} comment modal ends here {% endcomment %}
     </div>
-    <div class="save">
-      <i class="fa-regular fa-bookmark"></i>
-    </div>
+    <form action="{% url 'save_post' post.id %}" method="post" class="save-form" >
+      {% csrf_token %}
+      <button type="submit" class="save">
+        <i class="fa-regular fa-bookmark"></i>
+      </button>
+    </form>
   </div>
   {% comment %}
   <p class="liked-by">Liked by: <a href="">him_kishan_das01</a></p>
