@@ -12,6 +12,7 @@ from PIL import Image
 from django.http import HttpResponseForbidden 
 from django.core.paginator import Paginator
 from .models import SavedPost
+from datetime import datetime
 
 def signup(request):
     msg = None
@@ -132,7 +133,8 @@ def save_post(request, post_id):
         saved_post, created = SavedPost.objects.get_or_create(user=user, post=post)
 
         if created:
-            # Post was newly saved
+            saved_post.saved_at = datetime.now()  # System time
+            saved_post.save()
             messages.success(request, "Post saved successfully.")
         else:
             # Post already saved, so unsave it

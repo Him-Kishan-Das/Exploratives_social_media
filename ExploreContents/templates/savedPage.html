@@ -8,11 +8,17 @@
     <title>Saved Contents - {{ request.user.username }}</title>
     <link rel="stylesheet" href="{% static 'header.css' %}" />
     <link rel="stylesheet" href="{% static 'left-navigation.css' %}" />
-    <link rel="stylesheet" href="{% static 'savedPage.css' %}" />
+    <link rel="stylesheet" href="{% static 'profile.css' %}" />
+    <link rel="stylesheet" href="{%static 'savedPage.css' %}" />
   </head>
   <body>
     <div class="main">
       <div id="left-sider">{% include "left-navigation.html" %}</div>
+
+      <!-- User Greeting -->
+      <div class="user-greeting">
+        Welcome, {{ request.user.username }}!
+      </div>
 
       <div class="saved-contents-main">
         <h1 class="title">Saved Contents</h1>
@@ -20,14 +26,11 @@
         <div class="saved-contents-grid">
           {% if saved_posts %}
             {% for saved_post in saved_posts %}
-              <div 
-                class="saved-content-item" 
-                id="saved-content-{{ saved_post.post.id }}"
-              >
-                <img 
-                  class="saved-content-image" 
-                  src="{{ saved_post.post.post_image.url }}" 
-                  alt="{{ saved_post.post.post_caption }}" 
+              <div class="saved-content-item" data-id="{{ saved_post.post.id }}">
+                <img
+                  class="saved-content-image"
+                  src="{{ saved_post.post.post_image.url }}"
+                  alt="{{ saved_post.post.post_caption }}"
                 />
                 <div class="saved-content-details">
                   <h3 class="saved-content-title">{{ saved_post.post.post_caption }}</h3>
@@ -36,45 +39,71 @@
                   </p>
                 </div>
               </div>
+
+              <!-- Popup -->
+              <div id="popup-{{ saved_post.post.id }}" class="popup">
+                <div class="popup-content">
+                  <span class="close" data-id="{{ saved_post.post.id }}">&times;</span>
+
+                  <!-- User Info in Popup -->
+                  <div class="popup-header">
+                    <div>                     
+                      <img src="{{ saved_post.post.user.profile_picture.url }}" alt="{{ saved_post.post.user.username }}" class="popup-user-image" />
+                    </div>
+                    <span class="popup-username">{{ saved_post.post.user.username }}</span>
+                  </div>
+
+                  <img src="{{ saved_post.post.post_image.url }}" alt="{{ saved_post.post.post_caption }}" />
+                  <h3>{{ saved_post.post.post_caption }}</h3>
+                  <p>{{ saved_post.saved_at|date:"F j, Y, g:i a" }}</p>
+                  <p>{{ saved_post.post.post_description }}</p>
+                </div>
+              </div>
             {% endfor %}
           {% else %}
             <p class="no-saved-content">No saved contents to display.</p>
           {% endif %}
         </div>
-
-        <!-- Pagination Controls -->
-        <div class="pagination">
-          {% if saved_posts.has_previous %}
-            <a href="?page={{ saved_posts.previous_page_number }}" class="pagination-prev">
-              Previous
-            </a>
-          {% endif %}
-
-          <span class="pagination-info">
-            Page {{ saved_posts.number }} of {{ saved_posts.paginator.num_pages }}
-          </span>
-
-          {% if saved_posts.has_next %}
-            <a href="?page={{ saved_posts.next_page_number }}" class="pagination-next">
-              Next
-            </a>
-          {% endif %}
-        </div>
       </div>
     </div>
-  </body>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const savedContentItems = document.querySelectorAll('.saved-content-item');
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedContentItems = document.querySelectorAll(".saved-content-item");
+        const popups = document.querySelectorAll(".popup");
+        const closeButtons = document.querySelectorAll(".close");
 
-      savedContentItems.forEach(item => {
-        item.addEventListener('click', function () {
-          const id = this.id.split('-')[2];
-          alert(`You clicked on saved content with Post ID: ${id}`);
-          // Additional actions can be added here.
+        // Open popup
+        savedContentItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
+            const popup = document.getElementById(`popup-${id}`);
+            if (popup) {
+              popup.style.display = "flex";
+            }
+          });
+        });
+
+        // Close popup
+        closeButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
+            const popup = document.getElementById(`popup-${id}`);
+            if (popup) {
+              popup.style.display = "none";
+            }
+          });
+        });
+
+        // Close popup when clicking outside
+        window.addEventListener("click", function (event) {
+          popups.forEach((popup) => {
+            if (event.target === popup) {
+              popup.style.display = "none";
+            }
+          });
         });
       });
-    });
-  </script>
+    </script>
+  </body>
 </html>
