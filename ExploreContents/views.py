@@ -63,14 +63,17 @@ def login_page(request):
 
 @login_required
 def home(request):
-    posts = Post.objects.select_related('user').all()
-    liked_post_ids = Likes.objects.filter(user=request.user).values_list('post_id', flat=True)
+    user = request.user
+
+    followed_users = Follow.objects.filter(follower=user).values_list('following_id', flat=True)
     
+    posts = Post.objects.select_related('user').filter(user__in=followed_users)
+    liked_post_ids = Likes.objects.filter(user=user).values_list('post_id', flat=True)
     for post in posts:
         post.total_likes = Likes.objects.filter(post=post).count()
         post.liked_by = Likes.objects.filter(post=post).select_related('user')
         post.comments = Comments.objects.filter(post=post).select_related('user')
-    
+
     context = {'posts': posts, 'liked_post_ids': liked_post_ids}
     return render(request, 'index.html', context)
 
@@ -200,29 +203,21 @@ def EditProfile(request):
         profileImage = request.FILES.get('profile-picture')
         profile_username = request.POST.get('profile-username')
         profile_name = request.POST.get('profile-name')
-
         profile = users.objects.get(id=user_id)
-
         if profile_username:
-            profile.username = profile_username
-        
+            profile.username = profile_username        
         if profile_name:
             profile.name = profile_name
-
         if bio:
             profile.user_bio = bio  
-
         if profileImage:
             profilePic = Image.open(profileImage)
             if profilePic.mode == 'RGBA':
                 profilePic = profilePic.convert('RGB')
             profilePic.save(f'static/profilePic/{user_id}.jpg')
             profile.profile_picture = f'static/profilePic/{user_id}.jpg' 
-
         profile.save()
-
-        return HttpResponseRedirect(reverse('profile', args=[request.user.username]))
-    
+        return HttpResponseRedirect(reverse('profile', args=[request.user.username]))   
     return render(request, "edit_profile.html")
 
 
